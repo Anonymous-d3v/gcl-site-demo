@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — Green Cycle Limited</title>
+
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+<link rel="shortcut icon" href="favicon/favicon.ico">
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Nunito:wght@900&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gcl-dark:    #134331;
+    --gcl-mid:     #0e6340;
+    --gcl-bright:  #0e7f48;
+    --gcl-light:   #129a4a;
+    --gcl-pale:    #e8f5ee;
+    --orange:      #f56d10;
+    --orange-mid:  #c86526;
+    --gcl-grad:    linear-gradient(135deg, #134331 0%, #0e6340 40%, #0e7f48 70%, #129a4a 100%);
+    --text-light:  #e8f5ee;
+    --text-muted:  rgba(232,245,238,0.65);
+    --nav-height:  68px;
+    --font-display:'Berlin Sans FB','Berlin Sans','Century Gothic','Futura',sans-serif;
+    --font-body:   'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: #f4faf7; color: #1a2e22; overflow-x: hidden; }
+
+  /* ── NAVBAR (same as pyro-ccs) ── */
+  .navbar {
+    position: fixed; top: 0; left: 0; right: 0; height: var(--nav-height);
+    background: var(--gcl-dark); z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+  .nav-brand-logo { height: clamp(28px,3.5vw,42px); filter: brightness(0) invert(1); }
+  .nav-brand-divider { width: 1.5px; height: clamp(24px,3vw,36px); background: linear-gradient(to bottom,transparent,rgba(255,255,255,0.35),transparent); }
+  .nav-brand-text { display: flex; flex-direction: column; align-items: center; gap: 1px; }
+  .nav-brand-acronym { font-family: var(--font-display); font-weight: 700; font-size: clamp(1rem,2vw,1.5rem); letter-spacing: 0.05em; color: #fff; line-height: 1; }
+  .nav-brand-fullname { font-family: var(--font-display); font-size: clamp(0.28rem,0.6vw,0.42rem); text-transform: uppercase; color: rgba(255,255,255,0.55); white-space: nowrap; letter-spacing: 0.15em; }
+  .nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
+  .nav-links a { display: flex; align-items: center; gap: 4px; padding: 8px 14px; font-size: 0.82rem; font-weight: 600; color: var(--text-light); text-decoration: none; border-radius: 4px; transition: background 0.3s; white-space: nowrap; }
+  .nav-links a:hover { background: rgba(255,255,255,0.1); color: #fff; }
+  .nav-cta { padding: 9px 22px; background: var(--gcl-light) !important; color: #fff !important; font-weight: 700 !important; border-radius: 4px !important; }
+  .nav-cta:hover { background: #16b856 !important; }
+  .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; cursor: pointer; background: none; border: none; padding: 4px; z-index: 1100; }
+  .hamburger span { display: block; height: 2px; background: #fff; border-radius: 2px; transition: transform 0.35s, opacity 0.25s, width 0.25s; transform-origin: center; }
+  .hamburger span:nth-child(2) { width: 70%; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; width: 100%; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-menu { display: none; position: fixed; inset: 0; background: var(--gcl-dark); z-index: 999; flex-direction: column; padding: calc(var(--nav-height)+20px) 32px 40px; opacity: 0; transform: translateX(100%); transition: opacity 0.35s, transform 0.35s; overflow-y: auto; }
+  .mobile-menu.open { opacity: 1; transform: translateX(0); }
+  .mobile-nav-list { list-style: none; flex: 1; }
+  .mobile-nav-item { border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .mobile-nav-link { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; font-size: 1.05rem; font-weight: 600; color: var(--text-light); text-decoration: none; }
+  .mobile-cta { display: block; margin-top: 32px; padding: 16px; text-align: center; background: var(--gcl-light); color: #fff; font-weight: 700; text-decoration: none; border-radius: 6px; }
+
+  /* ══ PAGE ══ */
+  .page-body { padding-top: var(--nav-height); }
+
+  /* Hero */
+  .hero {
+    position: relative; min-height: 60vh;
+    display: flex; align-items: center; padding: 80px 60px;
+    background: var(--gcl-dark); overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(150deg, #0a2418 0%, #134331 55%, #0e7f48 100%);
+  }
+  .hero-bg::before {
+    content: ''; position: absolute; width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,109,16,0.12) 0%, transparent 70%);
+    top: -80px; right: 10%;
+  }
+  .hero-bg::after {
+    content: ''; position: absolute; width: 350px; height: 350px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(18,154,74,0.18) 0%, transparent 70%);
+    bottom: -60px; left: 5%;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 700px; }
+  .hero-label {
+    display: inline-block; font-family: var(--font-display); font-size: 0.72rem;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--gcl-light);
+    margin-bottom: 16px; padding: 5px 12px;
+    border: 1px solid rgba(18,154,74,0.4); border-radius: 2px;
+  }
+  .hero h1 {
+    font-family: var(--font-display); font-size: clamp(2.8rem,6vw,5rem);
+    font-weight: 700; color: #fff; line-height: 1.05; letter-spacing: 0.03em; margin-bottom: 20px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, #f56d10, #c86526);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .hero-sub { font-size: 1.05rem; font-weight: 300; color: var(--text-muted); line-height: 1.8; max-width: 560px; }
+
+  /* Milestone bar */
+  .milestone-bar {
+    background: #fff; padding: 0 60px;
+    display: flex; align-items: stretch;
+    border-bottom: 1px solid #d8ede3;
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .milestone-bar::-webkit-scrollbar { display: none; }
+  .milestone {
+    flex-shrink: 0; padding: 28px 36px; text-align: center;
+    border-right: 1px solid #d8ede3; min-width: 160px;
+  }
+  .milestone:last-child { border-right: none; }
+  .milestone-year {
+    font-family: var(--font-display); font-size: 2rem; font-weight: 700;
+    color: var(--gcl-light); line-height: 1; margin-bottom: 4px;
+  }
+  .milestone-text { font-size: 0.78rem; color: #4a6655; line-height: 1.4; }
+
+  /* Story section */
+  .section { padding: 80px 60px; }
+  .section-label { font-family: var(--font-display); font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gcl-bright); margin-bottom: 12px; }
+  .section-title { font-family: var(--font-display); font-size: clamp(1.8rem,3.5vw,3rem); font-weight: 700; color: var(--gcl-dark); line-height: 1.1; margin-bottom: 20px; }
+
+  .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+
+  .story-body p {
+    font-size: 0.97rem; color: #3a5a44; line-height: 1.9; margin-bottom: 20px;
+  }
+  .story-body p:last-child { margin-bottom: 0; }
+  .story-body strong { color: var(--gcl-dark); }
+
+  /* Tagline pull-quote */
+  .tagline {
+    margin-top: 40px; padding: 32px 36px;
+    background: var(--gcl-dark); border-radius: 8px;
+    border-left: 4px solid var(--orange);
+  }
+  .tagline-text {
+    font-family: var(--font-display); font-size: clamp(1.6rem,3vw,2.4rem);
+    font-weight: 700; letter-spacing: 0.08em; line-height: 1.1;
+    color: #fff; text-transform: uppercase;
+  }
+  .tagline-text span {
+    background: linear-gradient(90deg, #f56d10, #c86526);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  /* Side panel — what we've done */
+  .side-panel { display: flex; flex-direction: column; gap: 20px; }
+  .side-card {
+    background: #fff; border-radius: 8px; padding: 24px 22px;
+    border: 1px solid #d8ede3; position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .side-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--gcl-grad); opacity: 0; transition: opacity 0.3s;
+  }
+  .side-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(14,99,64,0.1); }
+  .side-card:hover::before { opacity: 1; }
+  .side-card-icon { font-size: 1.4rem; margin-bottom: 10px; }
+  .side-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--gcl-dark); margin-bottom: 6px; letter-spacing: 0.03em; }
+  .side-card p { font-size: 0.85rem; color: #4a6655; line-height: 1.7; }
+  /* Orange accent card */
+  .side-card.accent { border-color: rgba(245,109,16,0.3); }
+  .side-card.accent::before { background: linear-gradient(90deg, #f56d10, #c86526); }
+  .side-card.accent h3 { color: var(--orange-mid); }
+
+  /* Values */
+  .section-alt { background: #edf7f2; }
+  .values-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 20px; }
+  .value-card {
+    background: #fff; border-radius: 8px; padding: 28px 24px; text-align: center;
+    border: 1px solid #d8ede3; transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .value-card:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(14,99,64,0.1); }
+  .value-icon { font-size: 1.8rem; margin-bottom: 12px; }
+  .value-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--gcl-dark); margin-bottom: 8px; letter-spacing: 0.04em; }
+  .value-card p { font-size: 0.85rem; color: #4a6655; line-height: 1.7; }
+
+  /* Footer */
+  .footer { background: #0a2418; color: var(--text-muted); padding: 40px 60px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 0.8rem; }
+  .footer a { color: var(--gcl-light); text-decoration: none; }
+  .footer a:hover { color: #fff; }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu { display: flex; }
+    .navbar { padding: 0 20px; }
+    .nav-brand-logo { height: clamp(22px,6vw,30px); }
+    .nav-brand-acronym { font-size: clamp(0.85rem,4vw,1.1rem); }
+    .nav-brand-fullname { font-size: clamp(0.24rem,1.2vw,0.34rem); }
+
+    .hero { padding: 60px 24px; min-height: auto; }
+    .section { padding: 50px 24px; }
+    .milestone-bar { padding: 0 20px; }
+    .story-grid { grid-template-columns: 1fr; gap: 36px; }
+    .footer { padding: 30px 24px; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a class="nav-brand" href="index.html">
+    <img class="nav-brand-logo" src="pictures/gcl_logo.png" alt="GCL">
+    <div class="nav-brand-divider"></div>
+    <div class="nav-brand-text">
+      <span class="nav-brand-acronym">GCL</span>
+      <span class="nav-brand-fullname">Green Cycle Limited</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="pyro-ccs.html">PyCCS</a></li>
+    <li><a href="pyro-energy.html">Pyro Energy</a></li>
+    <li><a href="about.html" style="color:#fff;background:rgba(255,255,255,0.08);">About Us</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul class="mobile-nav-list">
+    <li class="mobile-nav-item"><a class="mobile-nav-link" href="pyro-ccs.html">PyCCS</a></li>
+    <li class="mobile-nav-item"><a class="mobile-nav-link" href="pyro-energy.html">Pyro Energy</a></li>
+    <li class="mobile-nav-item"><a class="mobile-nav-link" href="about.html">About Us</a></li>
+  </ul>
+  <a class="mobile-cta" href="contact.html">Contact Us</a>
+</div>
+
+<div class="page-body">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <span class="hero-label">About Green Cycle Limited</span>
+      <h1>Zambia's reference<br>point for <em>biochar.</em></h1>
+      <p class="hero-sub">Since 2018, we have led the way in turning agricultural waste into permanent, high-performance soil infrastructure — building value into the ground, one application at a time.</p>
+    </div>
+  </section>
+
+  <!-- Milestone bar -->
+  <div class="milestone-bar">
+    <div class="milestone">
+      <div class="milestone-year">2018</div>
+      <div class="milestone-text">First commercially available Pyro-Gardeners Biochar in Zambia</div>
+    </div>
+    <div class="milestone">
+      <div class="milestone-year">100%</div>
+      <div class="milestone-text">Agricultural waste inputs — maize cobs, wood sanding waste, poultry litter</div>
+    </div>
+    <div class="milestone">
+      <div class="milestone-year">3+</div>
+      <div class="milestone-text">Active sectors — remediation, agribusiness & microforestry</div>
+    </div>
+    <div class="milestone" style="border-left:3px solid #f56d10;">
+      <div class="milestone-year" style="color:#f56d10;">∞</div>
+      <div class="milestone-text">Years of carbon stability per biochar application</div>
+    </div>
+  </div>
+
+  <!-- Story -->
+  <section class="section">
+    <div class="story-grid">
+      <div class="story-body">
+        <div class="section-label">Our Story</div>
+        <h2 class="section-title">Building permanent value<br>into the ground.</h2>
+        <p>In 2018, Green Cycle Limited introduced the first commercially available <strong>Pyro-Gardeners Biochar</strong> to the Zambian market. Since that milestone, we have led the way in turning agricultural waste — maize cobs that would otherwise be burned in fields, wood sanding waste, and poultry litter — into permanent, high-performance soil infrastructure.</p>
+        <p>More recently, we have pioneered projects focused on <strong>tree nursery resilience</strong>, demonstrating improved sapling survival and water holding capacity through biochar-amended growing media. We are also conducting preliminary field trials on <strong>Pyro Black Urea™</strong>, our mechanically fused urea-biochar pellet designed to reduce nitrogen losses and leave recalcitrant carbon in the soil season after season — unlike conventional fertilisers that are fully spent after a single crop.</p>
+        <p>From post-mining remediation to agribusiness, Green Cycle Limited remains <strong>Zambia's reference point for biochar</strong>. We do not just sell a product. We build permanent value into the ground.</p>
+
+        <div class="tagline">
+          <div class="tagline-text">Carbon below,<br><span>life above.</span></div>
+        </div>
+      </div>
+
+      <div class="side-panel">
+        <div class="side-card">
+          <div class="side-card-icon">🌾</div>
+          <h3>Agricultural Waste → Infrastructure</h3>
+          <p>Maize cobs, wood sanding waste, and poultry litter are transformed through pyrolysis into permanent carbon matrices that build soil for centuries.</p>
+        </div>
+        <div class="side-card">
+          <div class="side-card-icon">🌳</div>
+          <h3>Tree Nursery Resilience</h3>
+          <p>Our biochar-amended growing media has demonstrated significantly improved sapling survival rates and water holding capacity in nursery trials across Zambia.</p>
+        </div>
+        <div class="side-card accent">
+          <div class="side-card-icon">🟠</div>
+          <h3>Pyro Black Urea™ — Field Trials</h3>
+          <p>Our mechanically fused urea-biochar pellet is currently in preliminary field trials — designed to reduce nitrogen losses while leaving recalcitrant carbon behind every season.</p>
+        </div>
+        <div class="side-card">
+          <div class="side-card-icon">⛏️</div>
+          <h3>Post-Mining Remediation</h3>
+          <p>From Kabwe's lead-polluted soils to rehabilitated tailings dams, our biochar provides proven heavy metal immobilisation backed by 14 years of independent field evidence.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section section-alt">
+    <div style="text-align:center;margin-bottom:48px;">
+      <div class="section-label" style="justify-content:center;display:flex;">What drives us</div>
+      <h2 class="section-title" style="text-align:center;">Our values</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">🔬</div>
+        <h3>Science First</h3>
+        <p>Every product and project is grounded in peer-reviewed research and independent field data — not marketing claims.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">♾️</div>
+        <h3>Permanence</h3>
+        <p>We build infrastructure that lasts centuries, not solutions that expire with the season.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🌍</div>
+        <h3>Local Impact</h3>
+        <p>Our inputs, our trials, and our impact are rooted in Zambia — turning local waste into national value.</p>
+      </div>
+      <div class="value-card" style="border-color:rgba(245,109,16,0.25);">
+        <div class="value-icon">🔥</div>
+        <h3>Innovation</h3>
+        <p>From mechanically fused Black Urea™ to Microforestry™, we are always pushing beyond what the industry thinks is possible.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <span>© 2026 Green Cycle Limited. All rights reserved.</span>
+  <div style="display:flex;gap:20px;">
+    <a href="index.html">← Back to Home</a>
+    <a href="contact.html">Contact Us</a>
+  </div>
+</footer>
+
+<script>
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    const isOpen = hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  document.addEventListener('click', e => {
+    if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+</script>
+</body>
+</html>
