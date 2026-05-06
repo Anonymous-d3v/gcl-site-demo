@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pyro Energy — Green Cycle Limited</title>
+
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+<link rel="shortcut icon" href="favicon/favicon.ico">
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --pyro-dark:    #310b01;
+    --pyro-mid:     #753110;
+    --pyro-bright:  #c86526;
+    --pyro-light:   #f56d10;
+    --pyro-grad:    linear-gradient(135deg, #310b01 0%, #753110 40%, #c86526 70%, #f56d10 100%);
+    --text-light:   #fdf3ed;
+    --text-muted:   rgba(253,243,237,0.65);
+    --nav-height:   68px;
+    --transition:   0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --font-display: 'Berlin Sans FB', 'Berlin Sans', 'Century Gothic', 'Futura', sans-serif;
+    --font-body:    'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: #fdf6f0;
+    color: #2a1208;
+    overflow-x: hidden;
+  }
+
+  /* ══════════════════════════════════════
+     NAVBAR
+  ══════════════════════════════════════ */
+  .navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-height);
+    background: var(--pyro-dark);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.35);
+  }
+
+  /* ── Brand ── */
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .nav-brand-logo {
+    height: clamp(28px, 3.5vw, 42px);
+    width: auto;
+    filter: brightness(0) invert(1);
+  }
+  .nav-brand-divider {
+    width: 1.5px;
+    height: clamp(24px, 3vw, 36px);
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.35), transparent);
+    border-radius: 2px;
+  }
+  .nav-brand-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    gap: 1px;
+  }
+  .nav-brand-acronym {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    color: #fff;
+  }
+  .nav-brand-fullname {
+    font-family: var(--font-display);
+    font-size: clamp(0.28rem, 0.6vw, 0.42rem);
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    white-space: nowrap;
+    letter-spacing: 0.15em;
+  }
+
+  /* ── Desktop nav links ── */
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    list-style: none;
+  }
+  .nav-links li { position: relative; }
+
+  .nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 14px;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--text-light);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background var(--transition), color var(--transition);
+    white-space: nowrap;
+  }
+  .nav-links a:hover { background: rgba(255,255,255,0.1); color: #fff; }
+  .nav-links a .arrow {
+    font-size: 0.6rem;
+    opacity: 0.6;
+    transition: transform var(--transition);
+  }
+  .nav-links li:hover > a .arrow { transform: rotate(180deg); }
+
+  /* ── Dropdown ── */
+  .dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    min-width: 200px;
+    background: var(--pyro-dark);
+    border-top: 2px solid var(--pyro-light);
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    z-index: 100;
+  }
+  .nav-links li:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .dropdown a {
+    display: block;
+    padding: 11px 18px;
+    border-radius: 0;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .dropdown a:last-child { border-bottom: none; }
+  .dropdown a:hover {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    padding-left: 24px;
+  }
+
+  /* ── CTA button ── */
+  .nav-cta {
+    flex-shrink: 0;
+    padding: 9px 22px;
+    background: var(--pyro-light) !important;
+    color: #fff !important;
+    font-weight: 700 !important;
+    border-radius: 4px !important;
+    transition: background var(--transition), transform 0.2s !important;
+  }
+  .nav-cta:hover {
+    background: #ff8533 !important;
+    transform: translateY(-1px);
+  }
+
+  /* ── Hamburger ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    z-index: 1100;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: transform 0.35s ease, opacity 0.25s ease, width 0.25s ease;
+    transform-origin: center;
+  }
+  .hamburger span:nth-child(2) { width: 70%; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; width: 100%; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── Mobile full-screen overlay ── */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--pyro-dark);
+    z-index: 999;
+    flex-direction: column;
+    padding: calc(var(--nav-height) + 20px) 32px 40px;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    overflow-y: auto;
+  }
+  .mobile-menu.open {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .mobile-nav-list { list-style: none; flex: 1; }
+  .mobile-nav-item { border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .mobile-nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-light);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .mobile-nav-link .mob-arrow {
+    font-size: 1rem;
+    color: var(--pyro-light);
+    transition: transform 0.3s ease;
+  }
+  .mobile-nav-item.expanded .mob-arrow { transform: rotate(90deg); }
+  .mobile-subnav {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+    padding-left: 16px;
+  }
+  .mobile-nav-item.expanded .mobile-subnav { max-height: 400px; }
+  .mobile-subnav a {
+    display: block;
+    padding: 12px 0;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .mobile-subnav a:last-child { border-bottom: none; }
+  .mobile-subnav a:hover { color: #fff; }
+  .mobile-cta {
+    display: block;
+    margin-top: 32px;
+    padding: 16px;
+    text-align: center;
+    background: var(--pyro-light);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ══════════════════════════════════════
+     PAGE CONTENT
+  ══════════════════════════════════════ */
+  .page-body { padding-top: var(--nav-height); }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    align-items: flex-end;
+    padding: 80px 60px;
+    overflow: hidden;
+    background: var(--pyro-dark);
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #1a0400 0%, #310b01 45%, #753110 100%);
+    z-index: 0;
+  }
+  .hero-bg::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,109,16,0.18) 0%, transparent 70%);
+    top: -100px; right: -100px;
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,101,38,0.15) 0%, transparent 70%);
+    bottom: 60px; left: 10%;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+  }
+  .hero-label {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--pyro-light);
+    margin-bottom: 18px;
+    padding: 6px 14px;
+    border: 1px solid rgba(245,109,16,0.4);
+    border-radius: 2px;
+  }
+
+  /* ── Pyro + Cooking wordmark ── */
+  .hero-wordmark {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .hero-wordmark-logo {
+    width: clamp(130px, 16vw, 200px);
+    filter: drop-shadow(0 4px 20px rgba(245,109,16,0.5)) brightness(0) invert(1);
+  }
+  .hero-wordmark-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.2rem, 5vw, 4.8rem);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    color: #fff;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+    margin-bottom: 24px;
+  }
+  .hero h1 span {
+    background: var(--pyro-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+    font-weight: 300;
+    color: var(--text-muted);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+  .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    padding: 14px 32px;
+    background: var(--pyro-light);
+    color: #fff;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .btn-primary:hover { background: #ff8533; transform: translateY(-2px); }
+  .btn-outline {
+    padding: 13px 30px;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    color: #fff;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .btn-outline:hover { border-color: var(--pyro-light); background: rgba(245,109,16,0.12); }
+
+  /* Section */
+  .section { padding: 100px 60px; }
+  .section-label {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--pyro-bright);
+    margin-bottom: 14px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    font-weight: 700;
+    color: var(--pyro-dark);
+    line-height: 1.15;
+    margin-bottom: 18px;
+    letter-spacing: 0.02em;
+  }
+  .section-sub {
+    font-size: 1rem;
+    color: #6b3818;
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 60px;
+  }
+
+  /* Cards */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 36px 28px;
+    border: 1px solid #f5dece;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--pyro-grad);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(117,49,16,0.12); }
+  .card:hover::before { opacity: 1; }
+  .card-icon {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: #fdeee3;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+  }
+  .card h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--pyro-dark);
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+  }
+  .card p { font-size: 0.88rem; color: #7a4020; line-height: 1.7; }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 20px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--pyro-bright);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+  .card-link:hover { color: var(--pyro-light); }
+
+  /* Dark section */
+  .section-dark {
+    background: var(--pyro-dark);
+    color: var(--text-light);
+  }
+  .section-dark .section-title { color: #fff; }
+  .section-dark .section-sub   { color: var(--text-muted); }
+  .section-dark .section-label { color: var(--pyro-light); }
+
+  /* Stats */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 60px;
+  }
+  .stat { padding: 40px 32px; background: rgba(255,255,255,0.04); text-align: center; }
+  .stat-number {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    color: var(--pyro-light);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Footer */
+  .footer {
+    background: #1a0400;
+    color: var(--text-muted);
+    padding: 40px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 0.8rem;
+  }
+  .footer a { color: var(--pyro-light); text-decoration: none; }
+  .footer a:hover { color: #fff; }
+
+  /* ══════════════════════════════════════
+     MOBILE
+  ══════════════════════════════════════ */
+  @media (max-width: 768px) {
+    .nav-links  { display: none; }
+    .hamburger  { display: flex; }
+    .mobile-menu { display: flex; }
+
+    .navbar { padding: 0 20px; }
+
+    .nav-brand-logo     { height: clamp(22px, 6vw, 30px); }
+    .nav-brand-divider  { height: clamp(18px, 5vw, 26px); }
+    .nav-brand-acronym  { font-size: clamp(0.85rem, 4vw, 1.1rem); }
+    .nav-brand-fullname { font-size: clamp(0.24rem, 1.2vw, 0.34rem); }
+
+    .hero { padding: 60px 24px 50px; min-height: 80vh; align-items: center; }
+    .hero h1 { font-size: clamp(2rem, 9vw, 3rem); }
+    .hero-wordmark-name { font-size: clamp(1.6rem, 8vw, 2.8rem); }
+    .hero-wordmark-logo { width: clamp(90px, 22vw, 140px); }
+
+    .section { padding: 60px 24px; }
+    .footer   { padding: 30px 24px; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="navbar">
+
+  <a class="nav-brand" href="landing.html">
+    <img class="nav-brand-logo" src="pictures/gcl_logo.png" alt="GCL">
+    <div class="nav-brand-divider"></div>
+    <div class="nav-brand-text">
+      <span class="nav-brand-acronym">GCL</span>
+      <span class="nav-brand-fullname">Green Cycle Limited</span>
+    </div>
+  </a>
+
+  <!-- Desktop links -->
+  <ul class="nav-links">
+    <li>
+      <a href="#">Our Products <span class="arrow">▾</span></a>
+      <div class="dropdown">
+        <a href="#">Briquettes</a>
+        <a href="#">Fire Blocks</a>
+        <a href="#">Charcoal Alternative</a>
+      </div>
+    </li>
+    <li>
+      <a href="#">Solutions <span class="arrow">▾</span></a>
+      <div class="dropdown">
+        <a href="#">Cooking</a>
+        <a href="#">Heating</a>
+        <a href="#">Deforestation Free</a>
+      </div>
+    </li>
+    <li><a href="#">Sustainability</a></li>
+    <li><a href="#">About Us</a></li>
+    <li><a href="#">Insights</a></li>
+    <li><a href="#" class="nav-cta">Contact Us</a></li>
+  </ul>
+
+  <!-- Hamburger -->
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+</nav>
+
+<!-- ══ MOBILE MENU ══ -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul class="mobile-nav-list">
+
+    <li class="mobile-nav-item has-sub">
+      <div class="mobile-nav-link">
+        Our Products <span class="mob-arrow">›</span>
+      </div>
+      <div class="mobile-subnav">
+        <a href="#">Briquettes</a>
+        <a href="#">Fire Blocks</a>
+        <a href="#">Charcoal Alternative</a>
+      </div>
+    </li>
+
+    <li class="mobile-nav-item has-sub">
+      <div class="mobile-nav-link">
+        Solutions <span class="mob-arrow">›</span>
+      </div>
+      <div class="mobile-subnav">
+        <a href="#">Cooking</a>
+        <a href="#">Heating</a>
+        <a href="#">Deforestation Free</a>
+      </div>
+    </li>
+
+    <li class="mobile-nav-item">
+      <a class="mobile-nav-link" href="#">Sustainability</a>
+    </li>
+
+    <li class="mobile-nav-item">
+      <a class="mobile-nav-link" href="#">About Us</a>
+    </li>
+
+    <li class="mobile-nav-item">
+      <a class="mobile-nav-link" href="#">Insights</a>
+    </li>
+
+  </ul>
+  <a class="mobile-cta" href="#">Contact Us</a>
+</div>
+
+<!-- ══ PAGE CONTENT ══ -->
+<div class="page-body">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <span class="hero-label">Pyro Energy — Green Cycle Limited</span>
+      <div class="hero-wordmark">
+        <img class="hero-wordmark-logo" src="pictures/pyro_energy.png" alt="Pyro Energy">
+        <span class="hero-wordmark-name">Energy</span>
+      </div>
+      <h1>Solid fuels<br><span>for everyone.</span></h1>
+      <p class="hero-sub">Clean-burning, deforestation-free solid fuels that bring affordable, sustainable cooking energy to homes and communities — without costing the earth.</p>
+      <div class="hero-buttons">
+        <a href="#products" class="btn-primary">Our Products</a>
+        <a href="#about" class="btn-outline">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="section" id="products">
+    <div class="section-label">What We Make</div>
+    <h2 class="section-title">Burning cleaner,<br>living better</h2>
+    <p class="section-sub">Pyro Cooking produces high-performance solid fuels made without cutting a single tree — better for your kitchen, better for the planet.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🔥</div>
+        <h3>Cooking</h3>
+        <p>High-heat, long-burning fuel solutions designed for everyday cooking needs — from household stoves to commercial kitchens.</p>
+        <a href="#" class="card-link">Learn more →</a>
+      </div>
+      <div class="card">
+        <div class="card-icon">⬛</div>
+        <h3>Charcoal Alternative</h3>
+        <p>A cleaner, more efficient substitute for traditional charcoal — same heat output, drastically lower emissions and zero deforestation.</p>
+        <a href="#" class="card-link">Learn more →</a>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧱</div>
+        <h3>Fire Blocks</h3>
+        <p>Compressed solid fuel blocks that ignite easily, burn consistently, and produce minimal smoke for a better cooking experience.</p>
+        <a href="#" class="card-link">Learn more →</a>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌿</div>
+        <h3>Briquettes</h3>
+        <p>Bio-based briquettes crafted from agricultural and organic waste — turning what was once discarded into a powerful fuel source.</p>
+        <a href="#" class="card-link">Learn more →</a>
+      </div>
+      <div class="card">
+        <div class="card-icon">♨️</div>
+        <h3>Heating</h3>
+        <p>Efficient solid fuels for space heating, water heating, and industrial thermal applications — scalable for any need.</p>
+        <a href="#" class="card-link">Learn more →</a>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌳</div>
+        <h3>Deforestation Free</h3>
+        <p>Every Pyro Cooking product is produced without harvesting trees — protecting forests while meeting the growing demand for solid fuel energy.</p>
+        <a href="#" class="card-link">Learn more →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="section section-dark" id="about">
+    <div class="section-label">Our Impact</div>
+    <h2 class="section-title">Numbers that ignite change</h2>
+    <p class="section-sub">Pyro Cooking's impact is measured in forests protected, households served, and cleaner air breathed every day.</p>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-number">0</div>
+        <div class="stat-label">Trees Cut Per Tonne Produced</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">60%</div>
+        <div class="stat-label">Lower Emissions vs Charcoal</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">3×</div>
+        <div class="stat-label">Longer Burn Than Wood</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Waste-Based Raw Materials</div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-body -->
+
+<!-- Footer -->
+<footer class="footer">
+  <span>© 2026 Green Cycle Limited. All rights reserved.</span>
+  <div style="display:flex;gap:20px;">
+    <a href="landing.html">← Back to Home</a>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<script>
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  document.querySelectorAll('.mobile-nav-item.has-sub .mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      const item = link.closest('.mobile-nav-item');
+      item.classList.toggle('expanded');
+      document.querySelectorAll('.mobile-nav-item.has-sub').forEach(other => {
+        if (other !== item) other.classList.remove('expanded');
+      });
+    });
+  });
+
+  document.addEventListener('click', e => {
+    if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pyro — Choose Your Industry</title>
+
+<!-- ═══ FAVICONS ═══ -->
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+<link rel="shortcut icon" href="favicon/favicon.ico">
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --base: #d4ede0;
+    --gcl-dark:   #134331;
+    --gcl-mid:    #0e6340;
+    --gcl-bright: #0e7f48;
+    --gcl-light:  #129a4a;
+    --gcl-grad: linear-gradient(135deg, #0e6340 40%, #0e7f48 70%, #129a4a 100%);
+    --transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: #111;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ── STAGE ── */
+  .stage {
+    position: relative;
+    width: 100vw; height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 22px 20px 0;
+    pointer-events: none;
+    text-align: center;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+  }
+  .stage.video-left .header,
+  .stage.video-right .header { opacity: 0; }
+
+  /* On desktop, text div is a transparent wrapper — children flow into the column */
+  .header-text { display: contents; }
+
+  /* ── BRAND BLOCK: icon + GCL text + full name ── */
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    order: -1;
+  }
+  .header-logo {
+    height: clamp(38px, 5.5vw, 66px);
+    width: auto;
+    filter: drop-shadow(0 2px 12px rgba(0,0,0,0.15));
+  }
+  .header-divider {
+    width: 2px;
+    align-self: stretch;
+    background: linear-gradient(to bottom, transparent, #0e7f48, transparent);
+    border-radius: 2px;
+    opacity: 0.6;
+  }
+  /* GCL acronym + full name stacked */
+  .header-name-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    gap: 1px;
+  }
+  .header-acronym {
+    font-family: 'Berlin Sans FB', 'Berlin Sans', 'Century Gothic', 'Futura', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 3.8vw, 3.6rem);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    background: var(--gcl-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-fullname {
+    font-family: 'Berlin Sans FB', 'Berlin Sans', 'Century Gothic', 'Futura', sans-serif;
+    font-weight: 700;
+    font-size: clamp(0.30rem, 1vw, 0.75rem);
+    text-transform: uppercase;
+    color: var(--gcl-mid);
+    opacity: 0.85;
+    white-space: nowrap;
+  }
+
+  .header .welcome {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    letter-spacing: 0.18em;
+    color: rgba(15, 30, 15, 0.72);
+    line-height: 1;
+    text-shadow: 0 2px 20px rgba(255,255,255,0.4);
+  }
+  .header .question {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: clamp(0.78rem, 1.5vw, 1.05rem);
+    letter-spacing: 0.1em;
+    color: rgba(15, 30, 15, 0.52);
+    margin-top: 4px;
+    text-transform: uppercase;
+    text-shadow: 0 1px 10px rgba(255,255,255,0.35);
+  }
+
+  /* ── HALVES ── */
+  .halves {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+
+  .half {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width var(--transition);
+  }
+
+  /* ── VIDEO ── */
+  .half video {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+  }
+
+  /* ── COLOR OVERLAY ── */
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--base);
+    z-index: 1;
+    transition: opacity 0.7s ease;
+    opacity: 1;
+  }
+
+  /* ── GLOW ── */
+  .glow {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+  }
+  .half-left  .glow { background: radial-gradient(circle at 50% 52%, rgba(224,106,16,0.3) 0%, transparent 68%); }
+  .half-right .glow { background: radial-gradient(circle at 50% 52%, rgba(42,122,26,0.3) 0%, transparent 68%); }
+
+  /* ── DARK SCRIM ── */
+  .scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background: rgba(0,0,0,0.38);
+    opacity: 0;
+    transition: opacity 0.7s ease;
+    pointer-events: none;
+  }
+
+  /* ── EDGE FADE — desktop (left/right) ── */
+  .half-left::after,
+  .half-right::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 30%;
+    height: 100%;
+    z-index: 4;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+  }
+  .half-left::after  { right: 0; background: linear-gradient(to right, transparent, var(--base)); }
+  .half-right::after { left: 0;  background: linear-gradient(to left,  transparent, var(--base)); }
+
+  .half-left:hover::after,  .half-left.mobile-active::after,
+  .half-right:hover::after, .half-right.mobile-active::after { opacity: 1; }
+
+  /* ── HOVER / ACTIVE (desktop) ── */
+  .half:hover video,         { opacity: 1; }
+  .half:hover .overlay       { opacity: 0; }
+  .half:hover .glow          { opacity: 1; }
+  .half:hover .scrim         { opacity: 1; }
+
+  /* ── MOBILE ACTIVE — driven purely by JS class, never by :hover ── */
+  .half.mobile-active video   { opacity: 1; }
+  .half.mobile-active .overlay{ opacity: 0; }
+  .half.mobile-active .glow   { opacity: 1; }
+  .half.mobile-active .scrim  { opacity: 1; }
+
+  /* bubbles + slogan + enter hint — both desktop hover and mobile-active */
+  .half:hover .bubble,        .half.mobile-active .bubble        { opacity: 1; }
+  .half:hover .slogan,        .half.mobile-active .slogan        { color: rgba(255,255,255,0.9); }
+  .half:hover .enter-hint,    .half.mobile-active .enter-hint    { color: rgba(255,255,255,0.65); }
+  .half.tapped .tap-again,    .half.mobile-active.tapped .tap-again { opacity: 1; }
+
+  /* logo glow */
+  .half:hover .logo-img,           .half.mobile-active .logo-img           { transform: scale(1.07); }
+  .half-left:hover  .logo-img,     .half-left.mobile-active  .logo-img     { filter: drop-shadow(0 6px 32px rgba(224,106,16,0.7)) drop-shadow(0 0 12px rgba(255,255,255,0.2)); }
+  .half-right:hover .logo-img,     .half-right.mobile-active .logo-img     { filter: drop-shadow(0 6px 32px rgba(42,122,26,0.7))  drop-shadow(0 0 12px rgba(255,255,255,0.2)); }
+
+  /* ── WIDTH EXPANSION ── */
+  .halves:not(.right-active) .half-left:hover,
+  .halves.left-active .half-left.mobile-active        { width: 60%; }
+  .halves:not(.right-active) .half-left:hover ~ .half-right,
+  .halves.left-active .half-right                     { width: 40%; }
+  .halves:not(.left-active) .half-right:hover,
+  .halves.right-active .half-right.mobile-active      { width: 75%; }
+  .halves.right-active .half-left                     { width: 25%; }
+
+  /* ── LOGO ── */
+  .logo-wrap {
+    position: relative;
+    z-index: 6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    animation: floatY 4.5s ease-in-out infinite;
+  }
+  .half-right .logo-wrap { animation-delay: -2.2s; }
+
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-16px); }
+  }
+
+  .logo-img {
+    width: clamp(150px, 20vw, 240px);
+    filter: drop-shadow(0 4px 14px rgba(0,0,0,0.12));
+    transition: filter 0.4s, transform 0.4s;
+  }
+
+  .enter-hint {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0);
+    transition: color 0.4s;
+  }
+
+  .slogan {
+    font-family: 'Berlin Sans FB', 'Berlin Sans', 'Century Gothic', 'Futura', sans-serif;
+    font-weight: 700;
+    font-size: clamp(0.82rem, 1.2vw, 1rem);
+    letter-spacing: 0.06em;
+    text-align: center;
+    color: rgba(255,255,255,0);
+    transition: color 0.45s ease;
+    pointer-events: none;
+    line-height: 1.3;
+  }
+  .half:hover .slogan { color: rgba(255,255,255,0.9); }
+
+  .tap-again {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0;
+    color: rgba(255,255,255,0.7);
+    margin-top: 4px;
+    transition: opacity 0.35s;
+    pointer-events: none;
+  }
+  .half.tapped .tap-again { opacity: 1; }
+
+  /* ── BUBBLES ── */
+  .bubble {
+    position: absolute;
+    border-radius: 999px;
+    padding: 5px 15px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.9);
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    animation: gentleFloat var(--float-dur, 5s) ease-in-out infinite;
+    animation-delay: var(--float-delay, 0s);
+  }
+  .half:hover .bubble { opacity: 1; }
+
+  @keyframes gentleFloat {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-9px); }
+  }
+
+  /* ── RIPPLE ── */
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: rippleOut 0.65s ease-out forwards;
+    pointer-events: none;
+    z-index: 7;
+  }
+  .half-left  .ripple { background: rgba(224,106,16,0.25); }
+  .half-right .ripple { background: rgba(42,122,26,0.25); }
+  @keyframes rippleOut { to { transform: scale(5); opacity: 0; } }
+
+  /* ════════════════════════════════════════
+     ── MOBILE ──
+     Stack vertically, mirror all effects
+  ════════════════════════════════════════ */
+  @media (max-width: 700px) {
+    .halves {
+      flex-direction: column;
+    }
+
+    /* Reset widths, use height instead */
+    .half {
+      width: 100% !important;
+      height: 50%;
+      transition: height var(--transition);
+    }
+
+    /* Height expansion on active (tap) */
+    .halves.left-active  .half-left.mobile-active  { height: 65% !important; }
+    .halves.left-active  .half-right               { height: 35% !important; }
+    .halves.right-active .half-right.mobile-active { height: 65% !important; }
+    .halves.right-active .half-left                { height: 35% !important; }
+
+    /* Edge fade: top half fades downward, bottom half fades upward */
+    .half-left::after  {
+      right: unset; left: 0;
+      width: 100%; height: 30%;
+      top: unset; bottom: 0;
+      background: linear-gradient(to bottom, transparent, var(--base));
+    }
+    .half-right::after {
+      left: 0;
+      width: 100%; height: 30%;
+      top: 0; bottom: unset;
+      background: linear-gradient(to top, transparent, var(--base));
+    }
+
+    /* ── Mobile header: brand pinned top-right, welcome centered ── */
+    .header {
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 12px 14px 0;
+      text-align: center;
+    }
+
+    /* Brand row: pinned to top-left on mobile */
+    .header-brand {
+      position: absolute;
+      top: 12px; left: 14px;
+      right: unset;
+      flex-direction: row;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 0;
+    }
+    .header-logo { height: clamp(30px, 6vw, 45px); }
+    .header-divider {
+      width: 2px;
+      height: clamp(20px, 6vw, 34px);
+      align-self: center;
+    }
+    .header-acronym {
+      font-size: clamp(1.4rem, 5vw, 1.8rem);
+    }
+    .header-fullname {
+      font-size: clamp(0.30rem, 1vw, 0.50rem);
+    }
+
+    /* Welcome block: centered, pushed down clear of the brand badge */
+    .header-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      margin-top: 42px;
+    }
+    .header .welcome { font-size: clamp(2rem, 10vw, 3.2rem); }
+    .header .question { font-size: clamp(0.6rem, 2.8vw, 0.85rem); margin-top: 2px; }
+
+    /* Logo sizing + push cooking logo further below header on mobile */
+    .logo-img { width: clamp(110px, 35vw, 180px); }
+    .half-left .logo-wrap { margin-top: 60px; }
+
+    /* Hide desktop hint, show tap hint */
+    .enter-hint { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+
+  <div class="header">
+    <div class="header-text">
+      <div class="welcome">Welcome</div>
+      <div class="question">Choose your industry</div>
+    </div>
+    <div class="header-brand">
+      <img class="header-logo" src="pictures/gcl_logo.png" alt="GCL Logo">
+      <div class="header-divider"></div>
+      <div class="header-name-block">
+        <span class="header-acronym">GCL</span>
+        <span class="header-fullname">Green Cycle Limited</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="halves" id="halves">
+
+    <!-- ── LEFT / TOP: PYRO COOKING ── -->
+    <div class="half half-left" id="left" onclick="handleClick(event,'left')" data-href="pyro-energy.html">
+      <video src="videos/pyro_cooking.MP4" muted loop playsinline preload="auto"></video>
+      <div class="overlay"></div>
+      <div class="glow"></div>
+      <div class="scrim"></div>
+
+      <div class="bubble" style="top:13%; left:7%;  --float-dur:5.2s; --float-delay:0s;">Cooking</div>
+      <div class="bubble" style="top:19%; right:8%; --float-dur:4.8s; --float-delay:-1.4s;">Charcoal alternative</div>
+      <div class="bubble" style="top:72%; left:6%;  --float-dur:5.6s; --float-delay:-2.1s;">Fire blocks</div>
+      <div class="bubble" style="top:80%; right:5%; --float-dur:4.5s; --float-delay:-0.8s;">Briquettes</div>
+      <div class="bubble" style="top:87%; left:28%; --float-dur:6.0s; --float-delay:-3.2s;">Heating</div>
+      <div class="bubble" style="top:8%;  left:32%; --float-dur:4.3s; --float-delay:-1.8s;">Deforestation free</div>
+
+      <div class="logo-wrap">
+        <img class="logo-img" src="pictures/pyro_cooking.png" alt="Pyro Cooking">
+        <div class="slogan">Solid fuels for everyone</div>
+        <div class="enter-hint">Enter &rarr;</div>
+        <div class="tap-again">Tap again to enter &rarr;</div>
+      </div>
+    </div>
+
+    <!-- ── RIGHT / BOTTOM: PYRO ENERGY ── -->
+    <div class="half half-right" id="right" onclick="handleClick(event,'right')" data-href="pyro-ccs.html">
+      <video src="videos/pyro_energy.MP4" muted loop playsinline preload="auto"></video>
+      <div class="overlay"></div>
+      <div class="glow"></div>
+      <div class="scrim"></div>
+
+      <div class="bubble" style="top:11%; left:5%;  --float-dur:5.0s; --float-delay:-0.6s;">Agriculture</div>
+      <div class="bubble" style="top:18%; right:4%; --float-dur:4.7s; --float-delay:-2.2s;">Environmental remediation</div>
+      <div class="bubble" style="top:71%; left:5%;  --float-dur:5.5s; --float-delay:-1.5s;">Carbon capture</div>
+      <div class="bubble" style="top:79%; right:4%; --float-dur:4.9s; --float-delay:-3.0s;">Carbon sequestration</div>
+      <div class="bubble" style="top:87%; left:18%; --float-dur:5.8s; --float-delay:-0.9s;">Negative emission technology</div>
+      <div class="bubble" style="top:7%;  left:28%; --float-dur:4.4s; --float-delay:-2.6s;">Clean energy</div>
+
+      <div class="logo-wrap">
+        <img class="logo-img" src="pictures/pyro_energy.png" alt="Pyro Energy">
+        <div class="slogan">Carbon below, life above</div>
+        <div class="enter-hint">Enter &rarr;</div>
+        <div class="tap-again">Tap again to enter &rarr;</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const stage  = document.getElementById('stage');
+  const halves = document.getElementById('halves');
+
+  // ── VIDEO PLAY ON HOVER (desktop only) ──
+  document.querySelectorAll('.half').forEach(half => {
+    const vid  = half.querySelector('video');
+    const side = half.classList.contains('half-left') ? 'video-left' : 'video-right';
+
+    half.addEventListener('mouseenter', () => {
+      if (isTouch()) return; // ignore on mobile
+      vid.play();
+      stage.classList.add(side);
+    });
+    half.addEventListener('mouseleave', () => {
+      if (isTouch()) return; // ignore on mobile — timer handles reset
+      vid.pause();
+      stage.classList.remove(side);
+    });
+  });
+
+  // ── RIPPLE ──
+  function createRipple(e, half) {
+    const rect = half.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = (e.clientX ?? rect.left + rect.width  / 2) - rect.left - size / 2;
+    const y = (e.clientY ?? rect.top  + rect.height / 2) - rect.top  - size / 2;
+    const rip = document.createElement('div');
+    rip.className = 'ripple';
+    rip.style.cssText = `width:${size}px;height:${size}px;left:${x}px;top:${y}px;`;
+    half.appendChild(rip);
+    setTimeout(() => rip.remove(), 750);
+  }
+
+  // ── CLICK / TAP ──
+  const isTouch = () => window.matchMedia('(hover:none)').matches;
+  let activeHalf = null;
+  let inactivityTimer = null;
+
+  function resetActiveState() {
+    if (!activeHalf) return;
+    const prev = document.getElementById(activeHalf);
+    const vid  = prev.querySelector('video');
+
+    // Remove mobile-active — CSS transitions back to neutral automatically
+    prev.classList.remove('mobile-active', 'tapped');
+    halves.classList.remove('left-active', 'right-active');
+    stage.classList.remove('video-left', 'video-right');
+
+    // Pause video after the CSS transition finishes
+    setTimeout(() => vid.pause(), 750);
+
+    activeHalf = null;
+  }
+
+  function startInactivityTimer() {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(resetActiveState, 12000);
+  }
+
+  function handleClick(e, side) {
+    const half = document.getElementById(side);
+    const href = half.dataset.href;
+    createRipple(e, half);
+
+    if (!isTouch()) {
+      setTimeout(() => window.location.href = href, 420);
+      return;
+    }
+
+    // Second tap on same side → navigate
+    if (activeHalf === side) {
+      clearTimeout(inactivityTimer);
+      setTimeout(() => window.location.href = href, 350);
+      return;
+    }
+
+    // Deactivate previous if switching sides
+    if (activeHalf) {
+      const prev = document.getElementById(activeHalf);
+      prev.classList.remove('mobile-active', 'tapped');
+      prev.querySelector('video').pause();
+      halves.classList.remove('left-active', 'right-active');
+      stage.classList.remove('video-left', 'video-right');
+    }
+
+    // Activate new side
+    activeHalf = side;
+    half.classList.add('mobile-active', 'tapped');
+    half.querySelector('video').play();
+    halves.classList.add(`${side}-active`);
+    stage.classList.add(half.classList.contains('half-left') ? 'video-left' : 'video-right');
+
+    // 12s inactivity timer
+    startInactivityTimer();
+  }
+</script>
+</body>
+</html>
