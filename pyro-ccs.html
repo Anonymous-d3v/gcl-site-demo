@@ -21,7 +21,7 @@
     --gcl-mid:     #0e6340;
     --gcl-bright:  #0e7f48;
     --gcl-light:   #129a4a;
-    --gcl-grad:    linear-gradient(135deg, #134331 0%, #0e6340 40%, #0e7f48 70%, #129a4a 100%);
+    --gcl-grad:    linear-gradient(135deg, #0e6340 40%, #0e7f48 70%, #129a4a 100%);
     --text-light:  #e8f5ee;
     --text-muted:  rgba(232,245,238,0.65);
     --nav-height:  68px;
@@ -187,14 +187,15 @@
   /* "genic CCS" sits next to the logo — pyro is in the logo image */
   .hero-wordmark-name {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
     line-height: 1;
-    gap: 2px;
   }
   .hero-wordmark-genic {
     font-family: var(--font-pyro);
-    font-weight: 900;
-    font-size: clamp(1.6rem, 3.8vw, 3.8rem);
+    font-weight: 75;
+    font-size: clamp(2.0rem, 6.25vw, 5.25rem); /* 25% bigger to match pyro logo height */
     letter-spacing: -0.01em;
     color: #fff;
     line-height: 1;
@@ -202,9 +203,8 @@
   .hero-wordmark-ccs {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(1.2rem, 2.8vw, 2.8rem);
-    letter-spacing: 0.12em;
-    color: #fff;
+    font-size: clamp(2.8rem, 6vw, 5.5rem); /* matches h1 / Carbon below size */
+    letter-spacing: 0.08em;
     line-height: 1;
     background: var(--gcl-grad);
     -webkit-background-clip: text;
@@ -458,8 +458,9 @@
 
     .hero { padding: 60px 24px 50px; min-height: 80vh; align-items: center; }
     .hero h1 { font-size: clamp(2rem, 9vw, 3rem); }
-    .hero-wordmark-name { font-size: clamp(1.6rem, 8vw, 2.8rem); }
-    .hero-wordmark-logo { width: clamp(90px, 22vw, 140px); }
+    .hero-wordmark-genic { font-size: clamp(1.8rem, 8vw, 2.8rem); }
+    .hero-wordmark-ccs   { font-size: clamp(2rem, 9vw, 3rem); }
+    .hero-wordmark-logo  { width: clamp(90px, 22vw, 140px); }
 
     .tab-btn { padding: 14px 20px; font-size: 0.8rem; }
 
@@ -825,21 +826,21 @@
           <h3>Raw / Virgin Biochar</h3>
           <p style="margin-bottom:12px;">Pure, activated biochar produced via high-temperature pyrolysis (600°C) from Zambian agricultural residues — maize cobs, rice husks, poultry litter. No inoculants. No amendments. Just performance-grade carbon.</p>
           <p style="font-size:0.82rem;color:var(--gcl-mid);font-weight:600;">For: Fertilizer blenders, large-scale agribusinesses, technical farmers</p>
-          <a href="#contact" class="card-link">Get a Quote →</a>
+          <a href="contact.html" class="card-link">Get a Quote →</a>
         </div>
         <div class="card">
           <div class="card-icon">🌿</div>
           <h3>Activated & Inoculated Biochar</h3>
           <p style="margin-bottom:12px;">Our plug-and-play solution. Pre-activated with a proprietary nutrient solution and inoculated with nitrogen-fixing bacteria and phosphorus-solubilizing fungi. Apply directly to the furrow. No lag phase. No guesswork.</p>
           <p style="font-size:0.82rem;color:var(--gcl-mid);font-weight:600;">For: Horticulture, vegetables, tobacco, and high-value row crops</p>
-          <a href="#contact" class="card-link">Get a Quote →</a>
+          <a href="contact.html" class="card-link">Get a Quote →</a>
         </div>
         <div class="card" style="border-color:var(--gcl-light);box-shadow:0 4px 24px rgba(14,127,72,0.12);">
           <div class="card-icon" style="background:var(--gcl-dark);">🟢</div>
           <h3>Pyro Black Urea™</h3>
           <p style="margin-bottom:12px;">A revolutionary product that solves agriculture's most persistent problem: nitrogen loss. We don't coat urea with biochar — we <strong>mechanically fuse</strong> them through a proprietary pelleting process. The nitrogen is not on the surface; it is integrated throughout the biochar matrix.</p>
           <p style="font-size:0.82rem;color:var(--gcl-mid);font-weight:600;">For: Large-scale maize, wheat, soybean, and cotton farmers</p>
-          <a href="#contact" class="card-link">Get a Quote →</a>
+          <a href="contact.html" class="card-link">Get a Quote →</a>
         </div>
       </div>
     </section>
