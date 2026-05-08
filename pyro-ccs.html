@@ -21,6 +21,8 @@
     --gcl-mid:     #0e6340;
     --gcl-bright:  #0e7f48;
     --gcl-light:   #129a4a;
+    --orange:      #f56d10;
+    --orange-mid:  #c86526;
     --gcl-grad:    linear-gradient(135deg, #0e6340 40%, #0e7f48 70%, #129a4a 100%);
     --text-light:  #e8f5ee;
     --text-muted:  rgba(232,245,238,0.65);
@@ -173,7 +175,7 @@
   .hero-content { position: relative; z-index: 1; max-width: 780px; }
   .hero-label {
     display: inline-block; font-family: var(--font-display); font-size: 0.75rem;
-    letter-spacing: 0.3em; text-transform: uppercase; color: var(--gcl-light);
+    letter-spacing: 0.3em; color: var(--gcl-light);
     margin-bottom: 18px; padding: 6px 14px;
     border: 1px solid rgba(18,154,74,0.4); border-radius: 2px;
   }
@@ -190,14 +192,6 @@
     flex-direction: row;
     align-items: baseline;
     gap: 10px;
-    line-height: 1;
-  }
-  .hero-wordmark-genic {
-    font-family: var(--font-pyro);
-    font-weight: 75;
-    font-size: clamp(2.0rem, 6.25vw, 5.25rem); /* 25% bigger to match pyro logo height */
-    letter-spacing: -0.01em;
-    color: #fff;
     line-height: 1;
   }
   .hero-wordmark-ccs {
@@ -268,7 +262,7 @@
   .section { padding: 80px 60px; }
   .section-label {
     font-family: var(--font-display); font-size: 0.72rem; letter-spacing: 0.3em;
-    text-transform: uppercase; color: var(--gcl-bright); margin-bottom: 12px;
+    text-transform: uppercase; color: #f56d10; margin-bottom: 12px;
   }
   .section-title {
     font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 3rem);
@@ -458,7 +452,6 @@
 
     .hero { padding: 60px 24px 50px; min-height: 80vh; align-items: center; }
     .hero h1 { font-size: clamp(2rem, 9vw, 3rem); }
-    .hero-wordmark-genic { font-size: clamp(1.8rem, 8vw, 2.8rem); }
     .hero-wordmark-ccs   { font-size: clamp(2rem, 9vw, 3rem); }
     .hero-wordmark-logo  { width: clamp(90px, 22vw, 140px); }
 
@@ -533,12 +526,12 @@
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-content">
-      <span class="hero-label">PyCCS — Green Cycle Limited</span>
+      <span class="hero-label">PyCCS — GREEN CYCLE LIMITED</span>
       <div class="hero-wordmark">
         <img class="hero-wordmark-logo" src="pictures/pyro_energy.png" alt="PyCCS">
         <div class="hero-wordmark-name">
-          <span class="hero-wordmark-genic">genic</span>
-          <span class="hero-wordmark-ccs">CCS</span>
+          <span class="hero-wordmark-ccs">PyCCS</span>
+          
         </div>
       </div>
       <h1>Carbon below,<br><span>life above.</span></h1>
@@ -785,7 +778,7 @@
     </section>
 
     <section class="section section-alt">
-      <div class="section-label">The Four Upgrades</div>
+      <div class="section-label">The ultimate nutrient carrier and soil builder</div>
       <h2 class="section-title">How biochar upgrades your<br>soil infrastructure.</h2>
       <p class="section-sub">Four critical soil functions — permanently engineered, not seasonally patched.</p>
       <div class="infra-grid">
@@ -831,8 +824,8 @@
         <div class="card">
           <div class="card-icon">🌿</div>
           <h3>Activated & Inoculated Biochar</h3>
-          <p style="margin-bottom:12px;">Our plug-and-play solution. Pre-activated with a proprietary nutrient solution and inoculated with nitrogen-fixing bacteria and phosphorus-solubilizing fungi. Apply directly to the furrow. No lag phase. No guesswork.</p>
-          <p style="font-size:0.82rem;color:var(--gcl-mid);font-weight:600;">For: Horticulture, vegetables, tobacco, and high-value row crops</p>
+          <p style="margin-bottom:12px;">Our soil ready solution. Pre-activated (filled with nutrients) and inoculated (loaded with healthy microbes). Apply directly to the furrow, planting hole or seedling sockets. No lag phase. No guesswork.</p>
+          <p style="font-size:0.82rem;color:var(--gcl-mid);font-weight:600;">For: Horticulture, vegetables, tobacco, high-value row crops, nurseries and agroforestry</p>
           <a href="contact.html" class="card-link">Get a Quote →</a>
         </div>
         <div class="card" style="border-color:var(--gcl-light);box-shadow:0 4px 24px rgba(14,127,72,0.12);">
@@ -849,7 +842,7 @@
     <section class="section section-alt">
       <div class="section-label">Why Pyro Black Urea™</div>
       <h2 class="section-title">Not just a coating.<br>A mechanical fusion.</h2>
-      <p class="section-sub">Surface coatings can rub off, degrade, or fail in the field. Our urea is integrated into the biochar matrix — a homogeneous, stable granule where every particle of nitrogen is physically bound.</p>
+      <p class="section-sub">Black urea fertilisers are typically surface coated and can rub off, degrade, or fail in the field. Pyr Black Urea is integrated into the biochar matrix — a homogeneous, stable pellet where every particle of nitrogen is physically bound. More value for the farmer, less green house gas emissions for the environment.</p>
       <div class="table-wrap">
         <table>
           <thead>
