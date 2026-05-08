@@ -15,30 +15,30 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
+ 
   :root {
     --base: #d4ede0;
     --gcl-dark:   #134331;
     --gcl-mid:    #0e6340;
     --gcl-bright: #0e7f48;
     --gcl-light:  #129a4a;
-    --gcl-grad: linear-gradient(135deg, #0e6340 40%, #0e7f48 70%, #129a4a 100%);
+    --gcl-grad: linear-gradient(135deg, #134331 0%, #0e6340 40%, #0e7f48 70%, #129a4a 100%);
     --transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
-
+ 
   html, body {
     width: 100%; height: 100%;
     overflow: hidden;
     background: #111;
     font-family: 'DM Sans', sans-serif;
   }
-
+ 
   /* ── STAGE ── */
   .stage {
     position: relative;
     width: 100vw; height: 100vh;
   }
-
+ 
   /* ── HEADER ── */
   .header {
     position: absolute;
@@ -56,10 +56,10 @@
   }
   .stage.video-left .header,
   .stage.video-right .header { opacity: 0; }
-
+ 
   /* On desktop, text div is a transparent wrapper — children flow into the column */
   .header-text { display: contents; }
-
+ 
   /* ── BRAND BLOCK: icon + GCL text + full name ── */
   .header-brand {
     display: flex;
@@ -108,7 +108,7 @@
     opacity: 0.85;
     white-space: nowrap;
   }
-
+ 
   .header .welcome {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(2.8rem, 6vw, 5rem);
@@ -127,14 +127,14 @@
     text-transform: uppercase;
     text-shadow: 0 1px 10px rgba(255,255,255,0.35);
   }
-
+ 
   /* ── HALVES ── */
   .halves {
     display: flex;
     width: 100%;
     height: 100%;
   }
-
+ 
   .half {
     position: relative;
     width: 50%;
@@ -145,7 +145,7 @@
     justify-content: center;
     transition: width var(--transition);
   }
-
+ 
   /* ── VIDEO ── */
   .half video {
     position: absolute;
@@ -156,7 +156,7 @@
     opacity: 0;
     transition: opacity 0.7s ease;
   }
-
+ 
   /* ── COLOR OVERLAY ── */
   .overlay {
     position: absolute;
@@ -166,7 +166,7 @@
     transition: opacity 0.7s ease;
     opacity: 1;
   }
-
+ 
   /* ── GLOW ── */
   .glow {
     position: absolute;
@@ -178,7 +178,7 @@
   }
   .half-left  .glow { background: radial-gradient(circle at 50% 52%, rgba(224,106,16,0.3) 0%, transparent 68%); }
   .half-right .glow { background: radial-gradient(circle at 50% 52%, rgba(42,122,26,0.3) 0%, transparent 68%); }
-
+ 
   /* ── DARK SCRIM ── */
   .scrim {
     position: absolute;
@@ -189,7 +189,7 @@
     transition: opacity 0.7s ease;
     pointer-events: none;
   }
-
+ 
   /* ── EDGE FADE — desktop (left/right) ── */
   .half-left::after,
   .half-right::after {
@@ -205,33 +205,33 @@
   }
   .half-left::after  { right: 0; background: linear-gradient(to right, transparent, var(--base)); }
   .half-right::after { left: 0;  background: linear-gradient(to left,  transparent, var(--base)); }
-
+ 
   .half-left:hover::after,  .half-left.mobile-active::after,
   .half-right:hover::after, .half-right.mobile-active::after { opacity: 1; }
-
+ 
   /* ── HOVER / ACTIVE (desktop) ── */
-  .half:hover video,         { opacity: 1; }
+  .half:hover video          { opacity: 1; }
   .half:hover .overlay       { opacity: 0; }
   .half:hover .glow          { opacity: 1; }
   .half:hover .scrim         { opacity: 1; }
-
+ 
   /* ── MOBILE ACTIVE — driven purely by JS class, never by :hover ── */
   .half.mobile-active video   { opacity: 1; }
   .half.mobile-active .overlay{ opacity: 0; }
   .half.mobile-active .glow   { opacity: 1; }
   .half.mobile-active .scrim  { opacity: 1; }
-
+ 
   /* bubbles + slogan + enter hint — both desktop hover and mobile-active */
   .half:hover .bubble,        .half.mobile-active .bubble        { opacity: 1; }
   .half:hover .slogan,        .half.mobile-active .slogan        { color: rgba(255,255,255,0.9); }
   .half:hover .enter-hint,    .half.mobile-active .enter-hint    { color: rgba(255,255,255,0.65); }
   .half.tapped .tap-again,    .half.mobile-active.tapped .tap-again { opacity: 1; }
-
+ 
   /* logo glow */
   .half:hover .logo-img,           .half.mobile-active .logo-img           { transform: scale(1.07); }
   .half-left:hover  .logo-img,     .half-left.mobile-active  .logo-img     { filter: drop-shadow(0 6px 32px rgba(224,106,16,0.7)) drop-shadow(0 0 12px rgba(255,255,255,0.2)); }
   .half-right:hover .logo-img,     .half-right.mobile-active .logo-img     { filter: drop-shadow(0 6px 32px rgba(42,122,26,0.7))  drop-shadow(0 0 12px rgba(255,255,255,0.2)); }
-
+ 
   /* ── WIDTH EXPANSION ── */
   .halves:not(.right-active) .half-left:hover,
   .halves.left-active .half-left.mobile-active        { width: 60%; }
@@ -240,7 +240,7 @@
   .halves:not(.left-active) .half-right:hover,
   .halves.right-active .half-right.mobile-active      { width: 75%; }
   .halves.right-active .half-left                     { width: 25%; }
-
+ 
   /* ── LOGO ── */
   .logo-wrap {
     position: relative;
@@ -252,18 +252,18 @@
     animation: floatY 4.5s ease-in-out infinite;
   }
   .half-right .logo-wrap { animation-delay: -2.2s; }
-
+ 
   @keyframes floatY {
     0%, 100% { transform: translateY(0); }
     50%       { transform: translateY(-16px); }
   }
-
+ 
   .logo-img {
     width: clamp(150px, 20vw, 240px);
     filter: drop-shadow(0 4px 14px rgba(0,0,0,0.12));
     transition: filter 0.4s, transform 0.4s;
   }
-
+ 
   .enter-hint {
     font-size: 0.7rem;
     letter-spacing: 0.25em;
@@ -271,7 +271,7 @@
     color: rgba(255,255,255,0);
     transition: color 0.4s;
   }
-
+ 
   .slogan {
     font-family: 'Berlin Sans FB', 'Berlin Sans', 'Century Gothic', 'Futura', sans-serif;
     font-weight: 700;
@@ -284,7 +284,66 @@
     line-height: 1.3;
   }
   .half:hover .slogan { color: rgba(255,255,255,0.9); }
-
+ 
+  /* Pyrogenic CCS lockup on landing */
+  .pyrogenic-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+  }
+  .pyrogenic-genic {
+    font-family: 'Nunito', 'Arial Rounded MT Bold', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.4rem, 3.2vw, 3rem);
+    color: rgba(255,255,255,0);
+    transition: color 0.45s ease;
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .pyrogenic-ccs {
+    font-family: 'Berlin Sans FB', 'Berlin Sans', 'Century Gothic', 'Futura', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.4rem, 3.2vw, 3rem);
+    color: rgba(255,255,255,0);
+    transition: color 0.45s ease;
+    line-height: 1;
+    letter-spacing: 0.06em;
+  }
+  .half:hover .pyrogenic-genic,
+  .half.mobile-active .pyrogenic-genic { color: rgba(255,255,255,0.9); }
+  .half:hover .pyrogenic-ccs,
+  .half.mobile-active .pyrogenic-ccs   { color: rgba(42,200,100,0.85); }
+ 
+  /* Pyrogenic CCS wordmark on landing green side */
+  .pyrogenic-wrap {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 6px;
+    opacity: 0;
+    transition: opacity 0.45s ease;
+  }
+  .half:hover .pyrogenic-wrap,
+  .half.mobile-active .pyrogenic-wrap { opacity: 1; }
+  .pyrogenic-genic {
+    font-family: 'Nunito', 'Arial Rounded MT Bold', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1rem, 2.2vw, 2rem);
+    color: #fff;
+    line-height: 1;
+  }
+  .pyrogenic-ccs {
+    font-family: 'Berlin Sans FB', 'Berlin Sans', 'Century Gothic', 'Futura', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.2rem, 2.6vw, 2.4rem);
+    line-height: 1;
+    background: linear-gradient(135deg, #134331, #0e6340, #0e7f48, #129a4a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+ 
   .tap-again {
     font-size: 0.68rem;
     letter-spacing: 0.2em;
@@ -296,7 +355,7 @@
     pointer-events: none;
   }
   .half.tapped .tap-again { opacity: 1; }
-
+ 
   /* ── BUBBLES ── */
   .bubble {
     position: absolute;
@@ -320,12 +379,12 @@
     animation-delay: var(--float-delay, 0s);
   }
   .half:hover .bubble { opacity: 1; }
-
+ 
   @keyframes gentleFloat {
     0%, 100% { transform: translateY(0px); }
     50%       { transform: translateY(-9px); }
   }
-
+ 
   /* ── RIPPLE ── */
   .ripple {
     position: absolute;
@@ -338,7 +397,7 @@
   .half-left  .ripple { background: rgba(224,106,16,0.25); }
   .half-right .ripple { background: rgba(42,122,26,0.25); }
   @keyframes rippleOut { to { transform: scale(5); opacity: 0; } }
-
+ 
   /* ════════════════════════════════════════
      ── MOBILE ──
      Stack vertically, mirror all effects
@@ -347,20 +406,20 @@
     .halves {
       flex-direction: column;
     }
-
+ 
     /* Reset widths, use height instead */
     .half {
       width: 100% !important;
       height: 50%;
       transition: height var(--transition);
     }
-
+ 
     /* Height expansion on active (tap) */
     .halves.left-active  .half-left.mobile-active  { height: 65% !important; }
     .halves.left-active  .half-right               { height: 35% !important; }
     .halves.right-active .half-right.mobile-active { height: 65% !important; }
     .halves.right-active .half-left                { height: 35% !important; }
-
+ 
     /* Edge fade: top half fades downward, bottom half fades upward */
     .half-left::after  {
       right: unset; left: 0;
@@ -374,7 +433,7 @@
       top: 0; bottom: unset;
       background: linear-gradient(to top, transparent, var(--base));
     }
-
+ 
     /* ── Mobile header: brand pinned top-right, welcome centered ── */
     .header {
       flex-direction: column;
@@ -383,7 +442,7 @@
       padding: 12px 14px 0;
       text-align: center;
     }
-
+ 
     /* Brand row: pinned to top-left on mobile */
     .header-brand {
       position: absolute;
@@ -406,7 +465,7 @@
     .header-fullname {
       font-size: clamp(0.30rem, 1vw, 0.50rem);
     }
-
+ 
     /* Welcome block: centered, pushed down clear of the brand badge */
     .header-text {
       display: flex;
@@ -417,11 +476,11 @@
     }
     .header .welcome { font-size: clamp(2rem, 10vw, 3.2rem); }
     .header .question { font-size: clamp(0.6rem, 2.8vw, 0.85rem); margin-top: 2px; }
-
+ 
     /* Logo sizing + push cooking logo further below header on mobile */
     .logo-img { width: clamp(110px, 35vw, 180px); }
     .half-left .logo-wrap { margin-top: 60px; }
-
+ 
     /* Hide desktop hint, show tap hint */
     .enter-hint { display: none; }
   }
@@ -482,7 +541,7 @@
       <div class="bubble" style="top:71%; left:5%;  --float-dur:5.5s; --float-delay:-1.5s;">Carbon capture</div>
       <div class="bubble" style="top:79%; right:4%; --float-dur:4.9s; --float-delay:-3.0s;">Carbon sequestration</div>
       <div class="bubble" style="top:87%; left:18%; --float-dur:5.8s; --float-delay:-0.9s;">Negative emission technology</div>
-      <div class="bubble" style="top:7%;  left:28%; --float-dur:4.4s; --float-delay:-2.6s;">Clean energy</div>
+      <div class="bubble" style="top:7%;  left:28%; --float-dur:4.4s; --float-delay:-2.6s;">Microforestry</div>
 
       <div class="logo-wrap">
         <img class="logo-img" src="pictures/pyro_energy.png" alt="Pyro Energy">
@@ -498,12 +557,12 @@
 <script>
   const stage  = document.getElementById('stage');
   const halves = document.getElementById('halves');
-
+ 
   // ── VIDEO PLAY ON HOVER (desktop only) ──
   document.querySelectorAll('.half').forEach(half => {
     const vid  = half.querySelector('video');
     const side = half.classList.contains('half-left') ? 'video-left' : 'video-right';
-
+ 
     half.addEventListener('mouseenter', () => {
       if (isTouch()) return; // ignore on mobile
       vid.play();
@@ -515,7 +574,7 @@
       stage.classList.remove(side);
     });
   });
-
+ 
   // ── RIPPLE ──
   function createRipple(e, half) {
     const rect = half.getBoundingClientRect();
@@ -528,50 +587,50 @@
     half.appendChild(rip);
     setTimeout(() => rip.remove(), 750);
   }
-
+ 
   // ── CLICK / TAP ──
   const isTouch = () => window.matchMedia('(hover:none)').matches;
   let activeHalf = null;
   let inactivityTimer = null;
-
+ 
   function resetActiveState() {
     if (!activeHalf) return;
     const prev = document.getElementById(activeHalf);
     const vid  = prev.querySelector('video');
-
+ 
     // Remove mobile-active — CSS transitions back to neutral automatically
     prev.classList.remove('mobile-active', 'tapped');
     halves.classList.remove('left-active', 'right-active');
     stage.classList.remove('video-left', 'video-right');
-
+ 
     // Pause video after the CSS transition finishes
     setTimeout(() => vid.pause(), 750);
-
+ 
     activeHalf = null;
   }
-
+ 
   function startInactivityTimer() {
     clearTimeout(inactivityTimer);
     inactivityTimer = setTimeout(resetActiveState, 12000);
   }
-
+ 
   function handleClick(e, side) {
     const half = document.getElementById(side);
     const href = half.dataset.href;
     createRipple(e, half);
-
+ 
     if (!isTouch()) {
       setTimeout(() => window.location.href = href, 420);
       return;
     }
-
+ 
     // Second tap on same side → navigate
     if (activeHalf === side) {
       clearTimeout(inactivityTimer);
       setTimeout(() => window.location.href = href, 350);
       return;
     }
-
+ 
     // Deactivate previous if switching sides
     if (activeHalf) {
       const prev = document.getElementById(activeHalf);
@@ -580,14 +639,14 @@
       halves.classList.remove('left-active', 'right-active');
       stage.classList.remove('video-left', 'video-right');
     }
-
+ 
     // Activate new side
     activeHalf = side;
     half.classList.add('mobile-active', 'tapped');
     half.querySelector('video').play();
     halves.classList.add(`${side}-active`);
     stage.classList.add(half.classList.contains('half-left') ? 'video-left' : 'video-right');
-
+ 
     // 12s inactivity timer
     startInactivityTimer();
   }
