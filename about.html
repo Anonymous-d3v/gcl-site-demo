@@ -35,36 +35,117 @@
   html { scroll-behavior: smooth; }
   body { font-family: var(--font-body); background: #f4faf7; color: #1a2e22; overflow-x: hidden; }
 
-  /* ── NAVBAR (same as pyro-ccs) ── */
+    /* ══════════════════════════════════════
+     NAVBAR
+  ══════════════════════════════════════ */
   .navbar {
-    position: fixed; top: 0; left: 0; right: 0; height: var(--nav-height);
-    background: var(--gcl-dark); z-index: 1000;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 40px; box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-height);
+    background: var(--gcl-dark);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
   }
-  .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
-  .nav-brand-logo { height: clamp(28px,3.5vw,42px); filter: brightness(0) invert(1); }
-  .nav-brand-divider { width: 1.5px; height: clamp(24px,3vw,36px); background: linear-gradient(to bottom,transparent,rgba(255,255,255,0.35),transparent); }
-  .nav-brand-text { display: flex; flex-direction: column; align-items: center; gap: 1px; }
-  .nav-brand-acronym { font-family: var(--font-display); font-weight: 700; font-size: clamp(1rem,2vw,1.5rem); letter-spacing: 0.05em; color: #fff; line-height: 1; }
-  .nav-brand-fullname { font-family: var(--font-display); font-size: clamp(0.28rem,0.6vw,0.42rem); text-transform: uppercase; color: rgba(255,255,255,0.55); white-space: nowrap; letter-spacing: 0.15em; }
+  .nav-brand {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none; flex-shrink: 0;
+  }
+  .nav-brand-logo { height: clamp(28px, 3.5vw, 42px); filter: brightness(0) invert(1); }
+  .nav-brand-divider {
+    width: 1.5px; height: clamp(24px, 3vw, 36px);
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.35), transparent);
+  }
+  .nav-brand-text { display: flex; flex-direction: column; align-items: center; line-height: 1; gap: 1px; }
+  .nav-brand-acronym {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(1rem, 2vw, 1.5rem); letter-spacing: 0.05em; color: #fff; line-height: 1;
+  }
+  .nav-brand-fullname {
+    font-family: var(--font-display); font-size: clamp(0.28rem, 0.6vw, 0.42rem);
+    text-transform: uppercase; color: rgba(255,255,255,0.55); white-space: nowrap; letter-spacing: 0.15em;
+  }
   .nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
-  .nav-links a { display: flex; align-items: center; gap: 4px; padding: 8px 14px; font-size: 0.82rem; font-weight: 600; color: var(--text-light); text-decoration: none; border-radius: 4px; transition: background 0.3s; white-space: nowrap; }
+  .nav-links li { position: relative; }
+  .nav-links a {
+    display: flex; align-items: center; gap: 4px; padding: 8px 14px;
+    font-family: var(--font-body); font-size: 0.82rem; font-weight: 600;
+    color: var(--text-light); text-decoration: none; border-radius: 4px;
+    transition: background var(--transition); white-space: nowrap;
+  }
   .nav-links a:hover { background: rgba(255,255,255,0.1); color: #fff; }
-  .nav-cta { padding: 9px 22px; background: var(--gcl-light) !important; color: #fff !important; font-weight: 700 !important; border-radius: 4px !important; }
-  .nav-cta:hover { background: #16b856 !important; }
-  .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; cursor: pointer; background: none; border: none; padding: 4px; z-index: 1100; }
-  .hamburger span { display: block; height: 2px; background: #fff; border-radius: 2px; transition: transform 0.35s, opacity 0.25s, width 0.25s; transform-origin: center; }
+  .nav-links a .arrow { font-size: 0.6rem; opacity: 0.6; transition: transform var(--transition); }
+  .nav-links li:hover > a .arrow { transform: rotate(180deg); }
+  .dropdown {
+    position: absolute; top: calc(100% + 6px); left: 0; min-width: 200px;
+    background: var(--gcl-dark); border-top: 2px solid var(--gcl-light);
+    border-radius: 0 0 6px 6px; box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    opacity: 0; visibility: hidden; transform: translateY(-8px);
+    transition: opacity 0.25s, transform 0.25s, visibility 0.25s; z-index: 100;
+  }
+  .nav-links li:hover .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+  .dropdown a {
+    display: block; padding: 11px 18px; border-radius: 0; font-size: 0.8rem;
+    font-weight: 500; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: padding 0.2s, background 0.2s;
+  }
+  .dropdown a:last-child { border-bottom: none; }
+  .dropdown a:hover { background: rgba(255,255,255,0.08); color: #fff; padding-left: 24px; }
+  .nav-cta {
+    padding: 9px 22px; background: var(--gcl-light) !important; color: #fff !important;
+    font-weight: 700 !important; border-radius: 4px !important;
+    transition: background var(--transition), transform 0.2s !important;
+  }
+  .nav-cta:hover { background: #16b856 !important; transform: translateY(-1px); }
+
+  /* Hamburger */
+  .hamburger {
+    display: none; flex-direction: column; justify-content: center; gap: 5px;
+    width: 36px; height: 36px; cursor: pointer; z-index: 1100;
+    background: none; border: none; padding: 4px;
+  }
+  .hamburger span {
+    display: block; height: 2px; background: #fff; border-radius: 2px;
+    transition: transform 0.35s ease, opacity 0.25s ease, width 0.25s ease; transform-origin: center;
+  }
   .hamburger span:nth-child(2) { width: 70%; }
   .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .hamburger.open span:nth-child(2) { opacity: 0; width: 100%; }
   .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-  .mobile-menu { display: none; position: fixed; inset: 0; background: var(--gcl-dark); z-index: 999; flex-direction: column; padding: calc(var(--nav-height)+20px) 32px 40px; opacity: 0; transform: translateX(100%); transition: opacity 0.35s, transform 0.35s; overflow-y: auto; }
-  .mobile-menu.open { opacity: 1; transform: translateX(0); }
+
+  /* Mobile menu */
+  .mobile-menu {
+    display: none; position: fixed; inset: 0; background: var(--gcl-dark); z-index: 999;
+    flex-direction: column; padding: calc(var(--nav-height) + 20px) 32px 40px;
+    opacity: 0; transform: translateX(100%); transition: opacity 0.35s, transform 0.35s; overflow-y: auto;
+  }
+  .mobile-menu.open { display: flex; opacity: 1; transform: translateX(0); }
   .mobile-nav-list { list-style: none; flex: 1; }
   .mobile-nav-item { border-bottom: 1px solid rgba(255,255,255,0.08); }
-  .mobile-nav-link { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; font-size: 1.05rem; font-weight: 600; color: var(--text-light); text-decoration: none; }
-  .mobile-cta { display: block; margin-top: 32px; padding: 16px; text-align: center; background: var(--gcl-light); color: #fff; font-weight: 700; text-decoration: none; border-radius: 6px; }
+  .mobile-nav-link {
+    display: flex; align-items: center; justify-content: space-between; padding: 18px 0;
+    font-family: var(--font-body); font-size: 1.05rem; font-weight: 600;
+    color: var(--text-light); text-decoration: none; cursor: pointer;
+  }
+  .mob-arrow { font-size: 1rem; color: var(--gcl-light); transition: transform 0.3s; }
+  .mobile-nav-item.expanded .mob-arrow { transform: rotate(90deg); }
+  .mobile-subnav { max-height: 0; overflow: hidden; transition: max-height 0.35s; padding-left: 16px; }
+  .mobile-nav-item.expanded .mobile-subnav { max-height: 400px; }
+  .mobile-subnav a {
+    display: block; padding: 12px 0; font-size: 0.9rem; color: var(--text-muted);
+    text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .mobile-subnav a:last-child { border-bottom: none; }
+  .mobile-subnav a:hover { color: #fff; }
+  .mobile-cta {
+    display: block; margin-top: 32px; padding: 16px; text-align: center;
+    background: var(--gcl-light); color: #fff; font-weight: 700;
+    text-decoration: none; border-radius: 6px; letter-spacing: 0.05em;
+  }
+
 
   /* ══ PAGE ══ */
   .page-body { padding-top: var(--nav-height); }
@@ -188,6 +269,32 @@
   .value-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--gcl-dark); margin-bottom: 8px; letter-spacing: 0.04em; }
   .value-card p { font-size: 0.85rem; color: #4a6655; line-height: 1.7; }
 
+  /* Icons */
+  .side-card-icon img,
+  .value-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .side-card-icon {
+    width: 48px; height: 48px;
+    margin-bottom: 10px;
+    background: #e8f5ee;
+    border-radius: 50%;
+    padding: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .side-card.accent .side-card-icon { background: #fdeee3; }
+  .value-icon {
+    width: 60px; height: 60px;
+    margin: 0 auto 14px;
+    background: #e8f5ee;
+    border-radius: 50%;
+    padding: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .value-card:last-child .value-icon { background: #fdeee3; }
+
   /* Footer */
   .footer { background: #0a2418; color: var(--text-muted); padding: 40px 60px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 0.8rem; }
   .footer a { color: var(--gcl-light); text-decoration: none; }
@@ -199,9 +306,11 @@
     .hamburger { display: flex; }
     .mobile-menu { display: flex; }
     .navbar { padding: 0 20px; }
-    .nav-brand-logo { height: clamp(22px,6vw,30px); }
-    .nav-brand-acronym { font-size: clamp(0.85rem,4vw,1.1rem); }
-    .nav-brand-fullname { font-size: clamp(0.24rem,1.2vw,0.34rem); }
+    .nav-brand-logo     { height: clamp(22px, 6vw, 30px); }
+    .nav-brand-divider  { height: clamp(18px, 5vw, 26px); }
+    .nav-brand-acronym  { font-size: clamp(0.85rem, 4vw, 1.1rem); }
+    .nav-brand-fullname { font-size: clamp(0.24rem, 1.2vw, 0.34rem); }
+
 
     .hero { padding: 60px 24px; min-height: auto; }
     .section { padding: 50px 24px; }
@@ -222,20 +331,40 @@
       <span class="nav-brand-fullname">Green Cycle Limited</span>
     </div>
   </a>
+
   <ul class="nav-links">
-    <li><a href="pyro-ccs.html">PyCCS</a></li>
+    <li>
+      <a href="pyro-ccs.html">PyCCS <span class="arrow">▾</span></a>
+      <div class="dropdown">
+        <a href="pyro-ccs.html">Biochar for Remediation</a>
+        <a href="pyro-ccs.html">Microforestry™</a>
+        <a href="pyro-ccs.html">Agribusiness</a>
+      </div>
+    </li>
     <li><a href="pyro-energy.html">Pyro Energy</a></li>
-    <li><a href="about.html" style="color:#fff;background:rgba(255,255,255,0.08);">About Us</a></li>
+    <li><a href="about.html" style="background:rgba(255,255,255,0.1);color:#fff;">About Us</a></li>
+    <li><a href="#">Insights</a></li>
     <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
   </ul>
-  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
   <ul class="mobile-nav-list">
-    <li class="mobile-nav-item"><a class="mobile-nav-link" href="pyro-ccs.html">PyCCS</a></li>
+    <li class="mobile-nav-item has-sub">
+      <div class="mobile-nav-link">PyCCS <span class="mob-arrow">›</span></div>
+      <div class="mobile-subnav">
+        <a href="pyro-ccs.html">Biochar for Remediation</a>
+        <a href="pyro-ccs.html">Microforestry™</a>
+        <a href="pyro-ccs.html">Agribusiness</a>
+      </div>
+    </li>
     <li class="mobile-nav-item"><a class="mobile-nav-link" href="pyro-energy.html">Pyro Energy</a></li>
     <li class="mobile-nav-item"><a class="mobile-nav-link" href="about.html">About Us</a></li>
+    <li class="mobile-nav-item"><a class="mobile-nav-link" href="#">Insights</a></li>
   </ul>
   <a class="mobile-cta" href="contact.html">Contact Us</a>
 </div>
@@ -289,22 +418,30 @@
 
       <div class="side-panel">
         <div class="side-card">
-          <div class="side-card-icon">🌾</div>
+          <div class="side-card-icon">
+            <img src="icons/agri-waste.png" alt="Agricultural Waste">
+          </div>
           <h3>Agricultural Waste → Infrastructure</h3>
           <p>Maize cobs, wood sanding waste, and poultry litter are transformed through pyrolysis into permanent carbon matrices that build soil for centuries.</p>
         </div>
         <div class="side-card">
-          <div class="side-card-icon">🌳</div>
+          <div class="side-card-icon">
+            <img src="icons/Resilient-plant.png" alt="Tree Nursery Resilience">
+          </div>
           <h3>Tree Nursery Resilience</h3>
           <p>Our biochar-amended growing media has demonstrated significantly improved sapling survival rates and water holding capacity in nursery trials across Zambia.</p>
         </div>
         <div class="side-card accent">
-          <div class="side-card-icon">🟠</div>
+          <div class="side-card-icon">
+            <img src="icons/search.png" alt="Pyro Black Urea">
+          </div>
           <h3>Pyro Black Urea™ — Field Trials</h3>
           <p>Our mechanically fused urea-biochar pellet is currently in preliminary field trials — designed to reduce nitrogen losses while leaving recalcitrant carbon behind every season.</p>
         </div>
         <div class="side-card">
-          <div class="side-card-icon">⛏️</div>
+          <div class="side-card-icon">
+            <img src="icons/corrosion.png" alt="Post-Mining Remediation">
+          </div>
           <h3>Post-Mining Remediation</h3>
           <p>From Kabwe's lead-polluted soils to rehabilitated tailings dams, our biochar provides proven heavy metal immobilisation backed by 14 years of independent field evidence.</p>
         </div>
@@ -320,22 +457,30 @@
     </div>
     <div class="values-grid">
       <div class="value-card">
-        <div class="value-icon">🔬</div>
+        <div class="value-icon">
+          <img src="icons/scientific-data.png" alt="Science First">
+        </div>
         <h3>Science First</h3>
         <p>Every product and project is grounded in peer-reviewed research and independent field data — not marketing claims.</p>
       </div>
       <div class="value-card">
-        <div class="value-icon">♾️</div>
+        <div class="value-icon">
+          <img src="icons/sustainable.png" alt="Permanence">
+        </div>
         <h3>Permanence</h3>
         <p>We build infrastructure that lasts centuries, not solutions that expire with the season.</p>
       </div>
       <div class="value-card">
-        <div class="value-icon">🌍</div>
+        <div class="value-icon">
+          <img src="icons/zambian-map.png" alt="Local Impact">
+        </div>
         <h3>Local Impact</h3>
         <p>Our inputs, our trials, and our impact are rooted in Zambia — turning local waste into national value.</p>
       </div>
       <div class="value-card" style="border-color:rgba(245,109,16,0.25);">
-        <div class="value-icon">🔥</div>
+        <div class="value-icon">
+          <img src="icons/development.png" alt="Innovation">
+        </div>
         <h3>Innovation</h3>
         <p>From mechanically fused Black Urea™ to Microforestry™, we are always pushing beyond what the industry thinks is possible.</p>
       </div>
@@ -355,7 +500,8 @@
 <script>
   const hamburger  = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobileMenu');
-  hamburger.addEventListener('click', () => {
+  hamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
     const isOpen = hamburger.classList.toggle('open');
     mobileMenu.classList.toggle('open', isOpen);
     document.body.style.overflow = isOpen ? 'hidden' : '';
