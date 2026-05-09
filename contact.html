@@ -34,30 +34,102 @@
   html { scroll-behavior: smooth; }
   body { font-family: var(--font-body); background: #f4faf7; color: #1a2e22; overflow-x: hidden; }
 
-  /* ── NAVBAR ── */
-  .navbar { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-height); background: var(--gcl-dark); z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
-  .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
-  .nav-brand-logo { height: clamp(28px,3.5vw,42px); filter: brightness(0) invert(1); }
-  .nav-brand-divider { width: 1.5px; height: clamp(24px,3vw,36px); background: linear-gradient(to bottom,transparent,rgba(255,255,255,0.35),transparent); }
-  .nav-brand-text { display: flex; flex-direction: column; align-items: center; gap: 1px; }
-  .nav-brand-acronym { font-family: var(--font-display); font-weight: 700; font-size: clamp(1rem,2vw,1.5rem); letter-spacing: 0.05em; color: #fff; line-height: 1; }
-  .nav-brand-fullname { font-family: var(--font-display); font-size: clamp(0.28rem,0.6vw,0.42rem); text-transform: uppercase; color: rgba(255,255,255,0.55); white-space: nowrap; letter-spacing: 0.15em; }
+    /* ══════════════════════════════════════
+     NAVBAR
+  ══════════════════════════════════════ */
+  .navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-height);
+    background: var(--gcl-dark);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none; flex-shrink: 0;
+  }
+  .nav-brand-logo { height: clamp(28px, 3.5vw, 42px); filter: brightness(0) invert(1); }
+  .nav-brand-divider {
+    width: 1.5px; height: clamp(24px, 3vw, 36px);
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.35), transparent);
+  }
+  .nav-brand-text { display: flex; flex-direction: column; align-items: center; line-height: 1; gap: 1px; }
+  .nav-brand-acronym {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(1rem, 2vw, 1.5rem); letter-spacing: 0.05em; color: #fff; line-height: 1;
+  }
+  .nav-brand-fullname {
+    font-family: var(--font-display); font-size: clamp(0.28rem, 0.6vw, 0.42rem);
+    text-transform: uppercase; color: rgba(255,255,255,0.55); white-space: nowrap; letter-spacing: 0.15em;
+  }
   .nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
-  .nav-links a { display: flex; align-items: center; gap: 4px; padding: 8px 14px; font-size: 0.82rem; font-weight: 600; color: var(--text-light); text-decoration: none; border-radius: 4px; transition: background 0.3s; white-space: nowrap; }
+  .nav-links li { position: relative; }
+  .nav-links a {
+    display: flex; align-items: center; gap: 4px; padding: 8px 14px;
+    font-family: var(--font-body); font-size: 0.82rem; font-weight: 600;
+    color: var(--text-light); text-decoration: none; border-radius: 4px;
+    transition: background var(--transition); white-space: nowrap;
+  }
   .nav-links a:hover { background: rgba(255,255,255,0.1); color: #fff; }
-  .nav-cta { padding: 9px 22px; background: var(--gcl-light) !important; color: #fff !important; font-weight: 700 !important; border-radius: 4px !important; }
-  .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; cursor: pointer; background: none; border: none; padding: 4px; z-index: 1100; }
-  .hamburger span { display: block; height: 2px; background: #fff; border-radius: 2px; transition: transform 0.35s, opacity 0.25s, width 0.25s; transform-origin: center; }
+  .nav-links a .arrow { font-size: 0.6rem; opacity: 0.6; transition: transform var(--transition); }
+  .nav-links li:hover > a .arrow { transform: rotate(180deg); }
+  .dropdown {
+    position: absolute; top: calc(100% + 6px); left: 0; min-width: 200px;
+    background: var(--gcl-dark); border-top: 2px solid var(--gcl-light);
+    border-radius: 0 0 6px 6px; box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    opacity: 0; visibility: hidden; transform: translateY(-8px);
+    transition: opacity 0.25s, transform 0.25s, visibility 0.25s; z-index: 100;
+  }
+  .nav-links li:hover .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+  .dropdown a {
+    display: block; padding: 11px 18px; border-radius: 0; font-size: 0.8rem;
+    font-weight: 500; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: padding 0.2s, background 0.2s;
+  }
+  .dropdown a:last-child { border-bottom: none; }
+  .dropdown a:hover { background: rgba(255,255,255,0.08); color: #fff; padding-left: 24px; }
+  .nav-cta {
+    padding: 9px 22px; background: var(--gcl-light) !important; color: #fff !important;
+    font-weight: 700 !important; border-radius: 4px !important;
+    transition: background var(--transition), transform 0.2s !important;
+  }
+  .nav-cta:hover { background: #16b856 !important; transform: translateY(-1px); }
+
+  /* Hamburger */
+  .hamburger {
+    display: none; flex-direction: column; justify-content: center; gap: 5px;
+    width: 36px; height: 36px; cursor: pointer; z-index: 1100;
+    background: none; border: none; padding: 4px;
+  }
+  .hamburger span {
+    display: block; height: 2px; background: #fff; border-radius: 2px;
+    transition: transform 0.35s ease, opacity 0.25s ease, width 0.25s ease; transform-origin: center;
+  }
   .hamburger span:nth-child(2) { width: 70%; }
   .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .hamburger.open span:nth-child(2) { opacity: 0; width: 100%; }
   .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-  .mobile-menu { display: none; position: fixed; inset: 0; background: var(--gcl-dark); z-index: 999; flex-direction: column; padding: calc(var(--nav-height)+20px) 32px 40px; opacity: 0; transform: translateX(100%); transition: opacity 0.35s, transform 0.35s; overflow-y: auto; }
-  .mobile-menu.open { opacity: 1; transform: translateX(0); }
+
+  /* Mobile menu */
+  .mobile-menu {
+    display: none; position: fixed; inset: 0; background: var(--gcl-dark); z-index: 999;
+    flex-direction: column; padding: calc(var(--nav-height) + 20px) 32px 40px;
+    opacity: 0; transform: translateX(100%); transition: opacity 0.35s, transform 0.35s; overflow-y: auto;
+  }
+  .mobile-menu.open { display: flex; opacity: 1; transform: translateX(0); }
   .mobile-nav-list { list-style: none; flex: 1; }
   .mobile-nav-item { border-bottom: 1px solid rgba(255,255,255,0.08); }
-  .mobile-nav-link { display: flex; align-items: center; padding: 18px 0; font-size: 1.05rem; font-weight: 600; color: var(--text-light); text-decoration: none; }
-  .mobile-cta { display: block; margin-top: 32px; padding: 16px; text-align: center; background: var(--gcl-light); color: #fff; font-weight: 700; text-decoration: none; border-radius: 6px; }
+  .mobile-nav-link {
+    display: flex; align-items: center; justify-content: space-between; padding: 18px 0;
+    font-family: var(--font-body); font-size: 1.05rem; font-weight: 600;
+    color: var(--text-light); text-decoration: none; cursor: pointer;
+  }
+
 
   /* ══ PAGE ══ */
   .page-body { padding-top: var(--nav-height); }
@@ -182,9 +254,11 @@
     .hamburger { display: flex; }
     .mobile-menu { display: flex; }
     .navbar { padding: 0 20px; }
-    .nav-brand-logo { height: clamp(22px,6vw,30px); }
-    .nav-brand-acronym { font-size: clamp(0.85rem,4vw,1.1rem); }
-    .nav-brand-fullname { font-size: clamp(0.24rem,1.2vw,0.34rem); }
+    .nav-brand-logo     { height: clamp(22px, 6vw, 30px); }
+    .nav-brand-divider  { height: clamp(18px, 5vw, 26px); }
+    .nav-brand-acronym  { font-size: clamp(0.85rem, 4vw, 1.1rem); }
+    .nav-brand-fullname { font-size: clamp(0.24rem, 1.2vw, 0.34rem); }
+
 
     .hero-strip { padding: 40px 24px; }
     .contact-grid { grid-template-columns: 1fr; }
@@ -207,20 +281,34 @@
       <span class="nav-brand-fullname">Green Cycle Limited</span>
     </div>
   </a>
+
   <ul class="nav-links">
-    <li><a href="pyro-ccs.html">PyCCS</a></li>
+    <li>
+      <a href="pyro-ccs.html">PyCCS <span class="arrow">▾</span></a>
+      <div class="dropdown">
+        <a href="pyro-ccs.html">Biochar for Remediation</a>
+        <a href="pyro-ccs.html">Microforestry™</a>
+        <a href="pyro-ccs.html">Agribusiness</a>
+      </div>
+    </li>
     <li><a href="pyro-energy.html">Pyro Energy</a></li>
     <li><a href="about.html">About Us</a></li>
+    <li><a href="#">Insights</a></li>
     <li><a href="contact.html" class="nav-cta" style="background:var(--orange)!important;">Contact Us</a></li>
   </ul>
-  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
   <ul class="mobile-nav-list">
-    <li class="mobile-nav-item"><a class="mobile-nav-link" href="pyro-ccs.html">PyCCS</a></li>
+    <li class="mobile-nav-item has-sub">
+      <a class="mobile-nav-link" href="pyro-ccs.html">PyCCS</a></li>
     <li class="mobile-nav-item"><a class="mobile-nav-link" href="pyro-energy.html">Pyro Energy</a></li>
     <li class="mobile-nav-item"><a class="mobile-nav-link" href="about.html">About Us</a></li>
+    <li class="mobile-nav-item"><a class="mobile-nav-link" href="#">Insights</a></li>
   </ul>
   <a class="mobile-cta" href="contact.html" style="background:var(--orange);">Contact Us</a>
 </div>
@@ -288,6 +376,8 @@
       <div class="form-title">Send us a message</div>
 
       <form id="contactForm">
+        <input type="hidden" name="_subject" value="New Green Cycle Website Enquiry">
+        <input type="hidden" name="_captcha" value="false">
         <div class="form-group">
           <label class="form-label" for="name">Full Name</label>
           <input class="form-input" type="text" id="name" name="name" placeholder="Your full name" required>
@@ -331,7 +421,7 @@
 
         <div class="form-group">
           <label class="form-label" for="subject">Subject</label>
-          <select class="form-select" id="subject" name="subject">
+          <select class="form-select" id="subject" name="subject" required>
             <option value="">Select a topic...</option>
             <option value="Farm Trial">Request a Farm Trial</option>
             <option value="Product Quote">Get a Product Quote</option>
@@ -373,11 +463,13 @@
   // ── NAVBAR ──
   const hamburger  = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobileMenu');
+
   hamburger.addEventListener('click', () => {
     const isOpen = hamburger.classList.toggle('open');
     mobileMenu.classList.toggle('open', isOpen);
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
+
   document.addEventListener('click', e => {
     if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
       hamburger.classList.remove('open');
@@ -393,41 +485,73 @@
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
     successMsg.style.display = 'none';
     errorMsg.style.display   = 'none';
 
     const btn = form.querySelector('.form-submit');
+
     btn.textContent = 'Sending…';
-    btn.disabled    = true;
+    btn.disabled = true;
 
     const phone = `${document.getElementById('countryCode').value} ${document.getElementById('phone').value}`;
-    const data  = {
-      name:    document.getElementById('name').value,
-      email:   document.getElementById('email').value,
-      phone,
+
+    const formData = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      phone: phone,
       subject: document.getElementById('subject').value,
       message: document.getElementById('message').value,
     };
 
     try {
-      const res = await fetch('https://formspree.io/f/thembasimpson@gmail.com', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body:    JSON.stringify(data),
+      const response = await fetch('https://formspree.io/f/mwvywlkr', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(formData)
       });
 
-      if (res.ok) {
+      if (response.ok) {
         successMsg.style.display = 'block';
+
         form.reset();
+
+        // restore default country code
         document.getElementById('countryCode').value = '+260';
+
+        // scroll to success message
+        successMsg.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+
       } else {
+        const data = await response.json();
+
+        if (data.errors) {
+          errorMsg.textContent = data.errors
+            .map(error => error.message)
+            .join(', ');
+        } else {
+          errorMsg.textContent =
+            'Something went wrong. Please try again.';
+        }
+
         errorMsg.style.display = 'block';
       }
-    } catch {
+
+    } catch (error) {
+      errorMsg.textContent =
+        'Network error. Please check your connection and try again.';
+
       errorMsg.style.display = 'block';
+
     } finally {
       btn.textContent = 'Send Message →';
-      btn.disabled    = false;
+      btn.disabled = false;
     }
   });
 </script>
