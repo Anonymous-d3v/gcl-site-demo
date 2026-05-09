@@ -130,22 +130,6 @@
     font-family: var(--font-body); font-size: 1.05rem; font-weight: 600;
     color: var(--text-light); text-decoration: none; cursor: pointer;
   }
-  .mob-arrow { font-size: 1rem; color: var(--gcl-light); transition: transform 0.3s; }
-  .mobile-nav-item.expanded .mob-arrow { transform: rotate(90deg); }
-  .mobile-subnav { max-height: 0; overflow: hidden; transition: max-height 0.35s; padding-left: 16px; }
-  .mobile-nav-item.expanded .mobile-subnav { max-height: 400px; }
-  .mobile-subnav a {
-    display: block; padding: 12px 0; font-size: 0.9rem; color: var(--text-muted);
-    text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.05);
-  }
-  .mobile-subnav a:last-child { border-bottom: none; }
-  .mobile-subnav a:hover { color: #fff; }
-  .mobile-cta {
-    display: block; margin-top: 32px; padding: 16px; text-align: center;
-    background: var(--gcl-light); color: #fff; font-weight: 700;
-    text-decoration: none; border-radius: 6px; letter-spacing: 0.05em;
-  }
-
 
   /* ══ PAGE ══ */
   .page-body { padding-top: var(--nav-height); }
@@ -153,7 +137,7 @@
   /* Hero */
   .hero {
     position: relative; min-height: 60vh;
-    display: flex; align-items: center; padding: 80px 60px;
+    display: flex; align-items: center; padding: 40px 60px;
     background: var(--gcl-dark); overflow: hidden;
   }
   .hero-bg {
@@ -355,13 +339,7 @@
 <div class="mobile-menu" id="mobileMenu">
   <ul class="mobile-nav-list">
     <li class="mobile-nav-item has-sub">
-      <div class="mobile-nav-link">PyCCS <span class="mob-arrow">›</span></div>
-      <div class="mobile-subnav">
-        <a href="pyro-ccs.html">Biochar for Remediation</a>
-        <a href="pyro-ccs.html">Microforestry™</a>
-        <a href="pyro-ccs.html">Agribusiness</a>
-      </div>
-    </li>
+      <a class="mobile-nav-link" href="pyro-ccs.html">PyCCS</a></li>
     <li class="mobile-nav-item"><a class="mobile-nav-link" href="pyro-energy.html">Pyro Energy</a></li>
     <li class="mobile-nav-item"><a class="mobile-nav-link" href="about.html">About Us</a></li>
     <li class="mobile-nav-item"><a class="mobile-nav-link" href="#">Insights</a></li>
