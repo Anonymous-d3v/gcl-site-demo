@@ -123,7 +123,7 @@
     flex-direction: column; padding: calc(var(--nav-height) + 20px) 32px 40px;
     opacity: 0; transform: translateX(100%); transition: opacity 0.35s, transform 0.35s; overflow-y: auto;
   }
-  .mobile-menu.open { display: flex; opacity: 1; transform: translateX(0); }
+  .mobile-menu.open { opacity: 1; transform: translateX(0); }
   .mobile-nav-list { list-style: none; flex: 1; }
   .mobile-nav-item { border-bottom: 1px solid rgba(255,255,255,0.08); }
   .mobile-nav-link {
@@ -158,52 +158,39 @@
     display: flex; align-items: flex-end; padding: 80px 60px;
     overflow: hidden; background: var(--gcl-dark);
   }
-
-  /* Base green gradient — covers the whole hero */
   .hero-bg {
     position: absolute; inset: 0;
-    background: linear-gradient(160deg, #0a2418 0%, #134331 55%, #0e7f48 100%);
-    z-index: 0;
+    background: linear-gradient(160deg, #0a2418 0%, #134331 45%, #0e7f48 100%); z-index: 0;
   }
-
-  /* The tree canopy image — anchored top-right, full height */
+  /* Tree canopy image — top-right, fades diagonally toward bottom-left */
   .hero-bg::before {
-    content: '';
-    position: absolute;
-    inset: 0;
+    content: ''; position: absolute; inset: 0;
     background-image: url('pictures/PyCCS-hero-bg.jpeg');
     background-size: cover;
     background-position: top right;
     z-index: 1;
-    /* Diagonal mask: fully visible top-right, fades out toward bottom-left */
-    -webkit-mask-image: linear-gradient(
-      to bottom left,
+    -webkit-mask-image: linear-gradient(to bottom left,
       rgba(0,0,0,1)   0%,
       rgba(0,0,0,0.85) 30%,
       rgba(0,0,0,0.4)  55%,
       rgba(0,0,0,0)    75%
     );
-    mask-image: linear-gradient(
-      to bottom left,
+    mask-image: linear-gradient(to bottom left,
       rgba(0,0,0,1)   0%,
       rgba(0,0,0,0.85) 30%,
       rgba(0,0,0,0.4)  55%,
       rgba(0,0,0,0)    75%
     );
   }
-
-  /* Dark scrim over the image so text stays readable */
+  /* Left-to-right scrim so text stays readable over the image */
   .hero-bg::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(
-      to right,
-      rgba(10, 36, 24, 0.95) 0%,
-      rgba(10, 36, 24, 0.75) 35%,
-      rgba(10, 36, 24, 0.2)  60%,
-      rgba(10, 36, 24, 0)    80%
+    content: ''; position: absolute; inset: 0; z-index: 2;
+    background: linear-gradient(to right,
+      rgba(10,36,24,0.95) 0%,
+      rgba(10,36,24,0.7)  35%,
+      rgba(10,36,24,0.15) 60%,
+      rgba(10,36,24,0)    80%
     );
-    z-index: 2;
   }
   .hero-content { position: relative; z-index: 3; max-width: 780px; }
   .hero-label {
@@ -484,29 +471,13 @@
     .nav-brand-fullname { font-size: clamp(0.24rem, 1.2vw, 0.34rem); }
 
     .hero { padding: 60px 24px 50px; min-height: 80vh; align-items: center; }
-    /* On mobile: image fades from top, text readable below */
     .hero-bg::before {
       background-position: top center;
-      -webkit-mask-image: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.9) 0%,
-        rgba(0,0,0,0.5) 45%,
-        rgba(0,0,0,0)   75%
-      );
-      mask-image: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.9) 0%,
-        rgba(0,0,0,0.5) 45%,
-        rgba(0,0,0,0)   75%
-      );
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0) 75%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0) 75%);
     }
     .hero-bg::after {
-      background: linear-gradient(
-        to bottom,
-        rgba(10,36,24,0.5) 0%,
-        rgba(10,36,24,0.85) 60%,
-        rgba(10,36,24,0.95) 100%
-      );
+      background: linear-gradient(to bottom, rgba(10,36,24,0.45) 0%, rgba(10,36,24,0.88) 65%, rgba(10,36,24,0.97) 100%);
     }
     .hero h1 { font-size: clamp(2rem, 9vw, 3rem); }
     .hero-wordmark-ccs   { font-size: clamp(2rem, 9vw, 3rem); }
