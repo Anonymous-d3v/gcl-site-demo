@@ -54,7 +54,7 @@
     display: flex; align-items: center; gap: 10px;
     text-decoration: none; flex-shrink: 0;
   }
-  .nav-brand-logo { height: clamp(28px, 3.5vw, 42px); filter: brightness(0) invert(1); }
+  .nav-brand-logo { height: clamp(38px, 2.8vw, 66px); width: auto; filter: brightness(0) invert(1); }
   .nav-brand-divider {
     width: 1.5px; height: clamp(24px, 3vw, 36px);
     background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.35), transparent);
@@ -62,11 +62,11 @@
   .nav-brand-text { display: flex; flex-direction: column; align-items: center; line-height: 1; gap: 1px; }
   .nav-brand-acronym {
     font-family: var(--font-display); font-weight: 700;
-    font-size: clamp(1rem, 2vw, 1.5rem); letter-spacing: 0.05em; color: #fff; line-height: 1;
+    font-size: clamp(1.6rem, 2.2vw, 3.6rem); letter-spacing: 0.05em; color: #fff; line-height: 1;
   }
   .nav-brand-fullname {
-    font-family: var(--font-display); font-size: clamp(0.28rem, 0.6vw, 0.42rem);
-    text-transform: uppercase; color: rgba(255,255,255,0.55); white-space: nowrap; letter-spacing: 0.15em;
+    font-family: var(--font-display); font-size: clamp(0.30rem, .55vw, 0.75rem);
+    text-transform: uppercase; color: rgba(255, 255, 255, 0.673); white-space: nowrap;
   }
   .nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
   .nav-links li { position: relative; }
@@ -129,6 +129,11 @@
     display: flex; align-items: center; justify-content: space-between; padding: 18px 0;
     font-family: var(--font-body); font-size: 1.05rem; font-weight: 600;
     color: var(--text-light); text-decoration: none; cursor: pointer;
+  }
+  .mobile-cta {
+    display: block; margin-top: 32px; padding: 16px; text-align: center;
+    background: var(--gcl-light); color: #fff; font-weight: 700;
+    text-decoration: none; border-radius: 6px; letter-spacing: 0.05em;
   }
 
   /* ══ PAGE ══ */
@@ -290,11 +295,10 @@
     .hamburger { display: flex; }
     .mobile-menu { display: flex; }
     .navbar { padding: 0 20px; }
-    .nav-brand-logo     { height: clamp(22px, 6vw, 30px); }
+    .nav-brand-logo     { height: clamp(38px, 5.5vw, 66px); width: auto; }
     .nav-brand-divider  { height: clamp(18px, 5vw, 26px); }
-    .nav-brand-acronym  { font-size: clamp(0.85rem, 4vw, 1.1rem); }
-    .nav-brand-fullname { font-size: clamp(0.24rem, 1.2vw, 0.34rem); }
-
+    .nav-brand-acronym  { font-size: clamp(1.6rem, 3.8vw, 3.6rem); }
+    .nav-brand-fullname { font-size: clamp(0.30rem, 2.1vw, 0.75rem); }
 
     .hero { padding: 60px 24px; min-height: auto; }
     .section { padding: 50px 24px; }
@@ -307,7 +311,7 @@
 <body>
 
 <nav class="navbar">
-  <a class="nav-brand" href="index.html">
+  <a class="nav-brand" href="landing.html">
     <img class="nav-brand-logo" src="pictures/gcl_logo.png" alt="GCL">
     <div class="nav-brand-divider"></div>
     <div class="nav-brand-text">
@@ -470,7 +474,7 @@
 <footer class="footer">
   <span>© 2026 Green Cycle Limited. All rights reserved.</span>
   <div style="display:flex;gap:20px;">
-    <a href="index.html">← Back to Home</a>
+    <a href="landing.html">← Back to Home</a>
     <a href="contact.html">Contact Us</a>
   </div>
 </footer>
