@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="https://www.pyrozm.com/pyro-ccs.html">
+<meta property="og:title"       content="PyCCS — Pyrogenic Carbon Capture & Storage | GCL">
+<meta property="og:description" content="Biochar for land remediation, Microforestry™ planting, and Pyro Black Urea™ for Zambian farmers.">
+<meta property="og:image"       content="https://www.pyrozm.com/pictures/pyro_energy.png">
+<meta name="twitter:card"       content="summary_large_image">
 <title>PyCCS — Green Cycle Limited</title>
 
 <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
@@ -327,6 +333,49 @@
   }
   .card-link:hover { color: var(--gcl-light); }
 
+  /* Product cards — image on top */
+  .prod-cards {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;
+  }
+  .prod-card {
+    background: #fff; border-radius: 12px;
+    border: 1px solid #d8ede3; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex; flex-direction: column;
+  }
+  .prod-card:hover { transform: translateY(-5px); box-shadow: 0 14px 44px rgba(14,99,64,0.13); }
+  .prod-card-img {
+    width: 100%; height: 200px; object-fit: cover; display: block;
+    background: #e8f5ee;
+  }
+  .prod-card-body {
+    padding: 28px 24px 24px; display: flex; flex-direction: column; flex: 1;
+    border-top: 3px solid transparent;
+    background: linear-gradient(#fff 0%, #fff 100%) padding-box,
+                var(--gcl-grad) border-box;
+  }
+  .prod-card-icon {
+    width: 44px; height: 44px; border-radius: 50%; background: #e8f5ee;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+  }
+  .prod-card-icon.dark { background: var(--gcl-dark); }
+  .prod-card-icon img { width: 22px; height: 22px; object-fit: contain; }
+  .prod-card h3 {
+    font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+    color: var(--gcl-dark); margin-bottom: 10px; letter-spacing: 0.02em;
+  }
+  .prod-card p { font-size: 0.88rem; color: #4a6655; line-height: 1.75; margin-bottom: 10px; }
+  .prod-card-for {
+    font-size: 0.78rem; color: var(--gcl-mid); font-weight: 600; margin-top: auto; padding-top: 10px;
+  }
+  .prod-card-link {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 16px;
+    font-size: 0.82rem; font-weight: 700; color: var(--gcl-bright); text-decoration: none;
+  }
+  .prod-card-link:hover { color: var(--gcl-dark); }
+  .prod-card-featured { border-color: var(--gcl-light); box-shadow: 0 4px 24px rgba(14,127,72,0.12); }
+
   /* Two-col layout */
   .two-col {
     display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
@@ -527,9 +576,8 @@
         <a href="#" onclick="switchTab('agribusiness');return false;">Agribusiness</a>
       </div>
     </li>
-    <li><a href="#agribusiness">Our Products</a></li>
+    <li><a href="#our-products">Our Products</a></li>
     <li><a href="about.html">About Us</a></li>
-    <li><a href="#">Insights</a></li>
     <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
   </ul>
 
@@ -549,9 +597,8 @@
         <a href="#" onclick="switchTab('agribusiness');hamburger.click();return false;">Agribusiness</a>
       </div>
     </li>
-    <li class="mobile-nav-item"><a class="mobile-nav-link" href="#agribusiness">Our Products</a></li>
+    <li class="mobile-nav-item"><a class="mobile-nav-link" href="#our-products">Our Products</a></li>
     <li class="mobile-nav-item"><a class="mobile-nav-link" href="about.html">About Us</a></li>
-    <li class="mobile-nav-item"><a class="mobile-nav-link" href="#">Insights</a></li>
   </ul>
   <a class="mobile-cta" href="contact.html">Contact Us</a>
 </div>
@@ -862,37 +909,46 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="our-products">
       <div class="section-label">Our Products</div>
       <h2 class="section-title">Built for Zambian Agribusiness.</h2>
       <p class="section-sub">Three biochar product lines, each designed for a specific entry point into your farming system.</p>
-      <div class="cards">
-        <div class="card">
-          <div class="card-icon img-icon">
-            <img class="icon-img" src="icons/burner.png" alt="Raw Biochar">
+      <div class="prod-cards">
+        <div class="prod-card">
+          <img class="prod-card-img" src="pictures/virgin-biochar.jpeg" alt="Raw / Virgin Biochar">
+          <div class="prod-card-body">
+            <div class="prod-card-icon">
+              <img src="icons/burner.png" alt="Raw Biochar">
+            </div>
+            <h3>Raw / Virgin Biochar</h3>
+            <p>Pure, activated biochar produced via high-temperature pyrolysis (600°C) from Zambian agricultural residues — maize cobs, rice husks, poultry litter. No inoculants. No amendments. Just performance-grade carbon.</p>
+            <p class="prod-card-for">For: Fertilizer blenders, large-scale agribusinesses, technical farmers</p>
+            <a href="contact.html" class="prod-card-link">Get a Quote →</a>
           </div>
-          <h3>Raw / Virgin Biochar</h3>
-          <p style="margin-bottom:12px;">Pure, activated biochar produced via high-temperature pyrolysis (600°C) from Zambian agricultural residues — maize cobs, rice husks, poultry litter. No inoculants. No amendments. Just performance-grade carbon.</p>
-          <p style="font-size:0.82rem;color:var(--gcl-mid);font-weight:600;">For: Fertilizer blenders, large-scale agribusinesses, technical farmers</p>
-          <a href="contact.html" class="card-link">Get a Quote →</a>
         </div>
-        <div class="card">
-          <div class="card-icon img-icon">
-            <img class="icon-img" src="icons/agriculture.png" alt="Activated Biochar">
+        <div class="prod-card">
+          <img class="prod-card-img" src="pictures/activated-biochar.jpeg" alt="Activated & Inoculated Biochar">
+          <div class="prod-card-body">
+            <div class="prod-card-icon">
+              <img src="icons/agriculture.png" alt="Activated Biochar">
+            </div>
+            <h3>Activated & Inoculated Biochar</h3>
+            <p>Our soil ready solution. Pre-activated (filled with nutrients) and inoculated (loaded with healthy microbes). Apply directly to the furrow, planting hole or seedling sockets. No lag phase. No guesswork.</p>
+            <p class="prod-card-for">For: Horticulture, vegetables, tobacco, high-value row crops, nurseries and agroforestry</p>
+            <a href="contact.html" class="prod-card-link">Get a Quote →</a>
           </div>
-          <h3>Activated & Inoculated Biochar</h3>
-          <p style="margin-bottom:12px;">Our soil ready solution. Pre-activated (filled with nutrients) and inoculated (loaded with healthy microbes). Apply directly to the furrow, planting hole or seedling sockets. No lag phase. No guesswork.</p>
-          <p style="font-size:0.82rem;color:var(--gcl-mid);font-weight:600;">For: Horticulture, vegetables, tobacco, high-value row crops, nurseries and agroforestry</p>
-          <a href="contact.html" class="card-link">Get a Quote →</a>
         </div>
-        <div class="card" style="border-color:var(--gcl-light);box-shadow:0 4px 24px rgba(14,127,72,0.12);">
-          <div class="card-icon img-icon" style="background:var(--gcl-dark);">
-            <img class="icon-img" src="icons/molecule.png" alt="Pyro Black Urea" style="filter:brightness(0) invert(1);">
+        <div class="prod-card prod-card-featured">
+          <img class="prod-card-img" src="pictures/pyro-black-urea.jpeg" alt="Pyro Black Urea™">
+          <div class="prod-card-body">
+            <div class="prod-card-icon dark">
+              <img src="icons/molecule.png" alt="Pyro Black Urea" style="filter:brightness(0) invert(1);">
+            </div>
+            <h3>Pyro Black Urea™</h3>
+            <p>A revolutionary product that solves agriculture's most persistent problem: nitrogen loss. We don't coat urea with biochar — we <strong>mechanically fuse</strong> them through a proprietary pelleting process. The nitrogen is not on the surface; it is integrated throughout the biochar matrix.</p>
+            <p class="prod-card-for">For: Large-scale maize, wheat, soybean, and cotton farmers</p>
+            <a href="contact.html" class="prod-card-link">Get a Quote →</a>
           </div>
-          <h3>Pyro Black Urea™</h3>
-          <p style="margin-bottom:12px;">A revolutionary product that solves agriculture's most persistent problem: nitrogen loss. We don't coat urea with biochar — we <strong>mechanically fuse</strong> them through a proprietary pelleting process. The nitrogen is not on the surface; it is integrated throughout the biochar matrix.</p>
-          <p style="font-size:0.82rem;color:var(--gcl-mid);font-weight:600;">For: Large-scale maize, wheat, soybean, and cotton farmers</p>
-          <a href="contact.html" class="card-link">Get a Quote →</a>
         </div>
       </div>
     </section>
@@ -964,10 +1020,10 @@
 </div><!-- /page-body -->
 
 <footer class="footer">
-  <span>© 2026 Green Cycle Limited. All rights reserved.</span>
+  <span>© <span id="yr"></span> Green Cycle Limited. All rights reserved.</span>
   <div style="display:flex;gap:20px;">
     <a href="index.html">← Back to Home</a>
-    <a href="#">Privacy Policy</a>
+    <a href="privacy.html">Privacy Policy</a>
     <a href="#">Contact</a>
   </div>
 </footer>
@@ -1013,6 +1069,8 @@
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => switchTab(btn.dataset.tab));
   });
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
 </script>
 </body>
 </html>
