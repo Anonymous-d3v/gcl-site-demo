@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="https://www.pyrozm.com/about.html">
+<meta property="og:title"       content="About Green Cycle Limited.">
+<meta property="og:description" content="Zambia's leading biochar company. Pyrogenic carbon capture, Microforestry™, and soil-building products for Zambian agribusiness.">
+<meta property="og:image"       content="https://www.pyrozm.com/pictures/Official-gcl-logo.jpeg">
+<title>About Us — Green Cycle Limited</title>
+
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="manifest" href="favicon/site.webmanifest">
+<link rel="shortcut icon" href="favicon/favicon.ico">
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Nunito:wght@900&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gcl-dark:    #134331;
+    --gcl-mid:     #0e6340;
+    --gcl-bright:  #0e7f48;
+    --gcl-light:   #129a4a;
+    --gcl-pale:    #e8f5ee;
+    --orange:      #f56d10;
+    --orange-mid:  #c86526;
+    --gcl-grad:    linear-gradient(135deg, #134331 0%, #0e6340 40%, #0e7f48 70%, #129a4a 100%);
+    --text-light:  #e8f5ee;
+    --text-muted:  rgba(232,245,238,0.65);
+    --nav-height:  68px;
+    --font-display:'Berlin Sans FB','Berlin Sans','Century Gothic','Futura',sans-serif;
+    --font-body:   'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: #f4faf7; color: #1a2e22; overflow-x: hidden; }
+
+    /* ══════════════════════════════════════
+     NAVBAR
+  ══════════════════════════════════════ */
+  .navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-height);
+    background: var(--gcl-dark);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none; flex-shrink: 0;
+  }
+  .nav-brand-logo { height: clamp(38px, 2.8vw, 66px); width: auto; filter: brightness(0) invert(1); }
+  .nav-brand-divider {
+    width: 1.5px; height: clamp(24px, 3vw, 36px);
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.35), transparent);
+  }
+  .nav-brand-text { display: flex; flex-direction: column; align-items: center; line-height: 1; gap: 1px; }
+  .nav-brand-acronym {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(1.6rem, 2.2vw, 3.6rem); letter-spacing: 0.05em; color: #fff; line-height: 1;
+  }
+  .nav-brand-fullname {
+    font-family: var(--font-display); font-size: clamp(0.30rem, .55vw, 0.75rem);
+    text-transform: uppercase; color: rgba(255, 255, 255, 0.673); white-space: nowrap;
+  }
+  .nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
+  .nav-links li { position: relative; }
+  .nav-links a {
+    display: flex; align-items: center; gap: 4px; padding: 8px 14px;
+    font-family: var(--font-body); font-size: 0.82rem; font-weight: 600;
+    color: var(--text-light); text-decoration: none; border-radius: 4px;
+    transition: background var(--transition); white-space: nowrap;
+  }
+  .nav-links a:hover { background: rgba(255,255,255,0.1); color: #fff; }
+  .nav-links a .arrow { font-size: 0.6rem; opacity: 0.6; transition: transform var(--transition); }
+  .nav-links li:hover > a .arrow { transform: rotate(180deg); }
+  .dropdown {
+    position: absolute; top: calc(100% + 6px); left: 0; min-width: 200px;
+    background: var(--gcl-dark); border-top: 2px solid var(--gcl-light);
+    border-radius: 0 0 6px 6px; box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    opacity: 0; visibility: hidden; transform: translateY(-8px);
+    transition: opacity 0.25s, transform 0.25s, visibility 0.25s; z-index: 100;
+  }
+  .nav-links li:hover .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+  .dropdown a {
+    display: block; padding: 11px 18px; border-radius: 0; font-size: 0.8rem;
+    font-weight: 500; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: padding 0.2s, background 0.2s;
+  }
+  .dropdown a:last-child { border-bottom: none; }
+  .dropdown a:hover { background: rgba(255,255,255,0.08); color: #fff; padding-left: 24px; }
+  .nav-cta {
+    padding: 9px 22px; background: var(--gcl-light) !important; color: #fff !important;
+    font-weight: 700 !important; border-radius: 4px !important;
+    transition: background var(--transition), transform 0.2s !important;
+  }
+  .nav-cta:hover { background: #16b856 !important; transform: translateY(-1px); }
+
+  /* Hamburger */
+  .hamburger {
+    display: none; flex-direction: column; justify-content: center; gap: 5px;
+    width: 36px; height: 36px; cursor: pointer; z-index: 1100;
+    background: none; border: none; padding: 4px;
+  }
+  .hamburger span {
+    display: block; height: 2px; background: #fff; border-radius: 2px;
+    transition: transform 0.35s ease, opacity 0.25s ease, width 0.25s ease; transform-origin: center;
+  }
+  .hamburger span:nth-child(2) { width: 70%; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; width: 100%; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Mobile menu */
+  .mobile-menu {
+    display: none; position: fixed; inset: 0; background: var(--gcl-dark); z-index: 999;
+    flex-direction: column; padding: calc(var(--nav-height) + 20px) 32px 40px;
+    opacity: 0; transform: translateX(100%); transition: opacity 0.35s, transform 0.35s; overflow-y: auto;
+  }
+  .mobile-menu.open { display: flex; opacity: 1; transform: translateX(0); }
+  .mobile-nav-list { list-style: none; flex: 1; }
+  .mobile-nav-item { border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .mobile-nav-link {
+    display: flex; align-items: center; justify-content: space-between; padding: 18px 0;
+    font-family: var(--font-body); font-size: 1.05rem; font-weight: 600;
+    color: var(--text-light); text-decoration: none; cursor: pointer;
+  }
+  .mobile-cta {
+    display: block; margin-top: 32px; padding: 16px; text-align: center;
+    background: var(--gcl-light); color: #fff; font-weight: 700;
+    text-decoration: none; border-radius: 6px; letter-spacing: 0.05em;
+  }
+
+  /* ══ PAGE ══ */
+  .page-body { padding-top: var(--nav-height); }
+
+  /* Hero */
+  .hero {
+    position: relative; min-height: 60vh;
+    display: flex; align-items: center; padding: 40px 60px;
+    background: var(--gcl-dark); overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(150deg, #0a2418 0%, #134331 55%, #0e7f48 100%);
+  }
+  .hero-bg::before {
+    content: ''; position: absolute; width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,109,16,0.12) 0%, transparent 70%);
+    top: -80px; right: 10%;
+  }
+  .hero-bg::after {
+    content: ''; position: absolute; width: 350px; height: 350px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(18,154,74,0.18) 0%, transparent 70%);
+    bottom: -60px; left: 5%;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 700px; }
+  .hero-label {
+    display: inline-block; font-family: var(--font-display); font-size: 0.72rem;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--gcl-light);
+    margin-bottom: 16px; padding: 5px 12px;
+    border: 1px solid rgba(18,154,74,0.4); border-radius: 2px;
+  }
+  .hero h1 {
+    font-family: var(--font-display); font-size: clamp(2.8rem,6vw,5rem);
+    font-weight: 700; color: #fff; line-height: 1.05; letter-spacing: 0.03em; margin-bottom: 20px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, #f56d10, #c86526);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .hero-sub { font-size: 1.05rem; font-weight: 300; color: var(--text-muted); line-height: 1.8; max-width: 560px; }
+
+  /* Milestone bar */
+  .milestone-bar {
+    background: #fff; padding: 0 60px;
+    display: flex; align-items: stretch;
+    border-bottom: 1px solid #d8ede3;
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .milestone-bar::-webkit-scrollbar { display: none; }
+  .milestone {
+    flex-shrink: 0; padding: 28px 36px; text-align: center;
+    border-right: 1px solid #d8ede3; min-width: 160px;
+  }
+  .milestone:last-child { border-right: none; }
+  .milestone-year {
+    font-family: var(--font-display); font-size: 2rem; font-weight: 700;
+    color: var(--gcl-light); line-height: 1; margin-bottom: 4px;
+  }
+  .milestone-text { font-size: 0.78rem; color: #4a6655; line-height: 1.4; }
+
+  /* Story section */
+  .section { padding: 80px 60px; }
+  .section-label { font-family: var(--font-display); font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gcl-bright); margin-bottom: 12px; }
+  .section-title { font-family: var(--font-display); font-size: clamp(1.8rem,3.5vw,3rem); font-weight: 700; color: var(--gcl-dark); line-height: 1.1; margin-bottom: 20px; }
+
+  .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+
+  .story-body p {
+    font-size: 0.97rem; color: #3a5a44; line-height: 1.9; margin-bottom: 20px;
+  }
+  .story-body p:last-child { margin-bottom: 0; }
+  .story-body strong { color: var(--gcl-dark); }
+
+  /* Tagline pull-quote */
+  .tagline {
+    margin-top: 40px; padding: 32px 36px;
+    background: var(--gcl-dark); border-radius: 8px;
+    border-left: 4px solid var(--orange);
+  }
+  .tagline-text {
+    font-family: var(--font-display); font-size: clamp(1.6rem,3vw,2.4rem);
+    font-weight: 700; letter-spacing: 0.08em; line-height: 1.1;
+    color: #fff; text-transform: uppercase;
+  }
+  .tagline-text span {
+    background: linear-gradient(90deg, #f56d10, #c86526);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  /* Side panel — what we've done */
+  .side-panel { display: flex; flex-direction: column; gap: 20px; }
+  .side-card {
+    background: #fff; border-radius: 8px; padding: 24px 22px;
+    border: 1px solid #d8ede3; position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .side-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--gcl-grad); opacity: 0; transition: opacity 0.3s;
+  }
+  .side-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(14,99,64,0.1); }
+  .side-card:hover::before { opacity: 1; }
+  .side-card-icon { font-size: 1.4rem; margin-bottom: 10px; }
+  .side-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--gcl-dark); margin-bottom: 6px; letter-spacing: 0.03em; }
+  .side-card p { font-size: 0.85rem; color: #4a6655; line-height: 1.7; }
+  /* Orange accent card */
+  .side-card.accent { border-color: rgba(245,109,16,0.3); }
+  .side-card.accent::before { background: linear-gradient(90deg, #f56d10, #c86526); }
+  .side-card.accent h3 { color: var(--orange-mid); }
+
+  /* Values */
+  .section-alt { background: #edf7f2; }
+  .values-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 20px; }
+  .value-card {
+    background: #fff; border-radius: 8px; padding: 28px 24px; text-align: center;
+    border: 1px solid #d8ede3; transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .value-card:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(14,99,64,0.1); }
+  .value-icon { font-size: 1.8rem; margin-bottom: 12px; }
+  .value-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--gcl-dark); margin-bottom: 8px; letter-spacing: 0.04em; }
+  .value-card p { font-size: 0.85rem; color: #4a6655; line-height: 1.7; }
+
+  /* Icons */
+  .side-card-icon img,
+  .value-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .side-card-icon {
+    width: 48px; height: 48px;
+    margin-bottom: 10px;
+    background: #e8f5ee;
+    border-radius: 50%;
+    padding: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .side-card.accent .side-card-icon { background: #fdeee3; }
+  .value-icon {
+    width: 60px; height: 60px;
+    margin: 0 auto 14px;
+    background: #e8f5ee;
+    border-radius: 50%;
+    padding: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .value-card:last-child .value-icon { background: #fdeee3; }
+
+  /* Footer */
+  .footer { background: #0a2418; color: var(--text-muted); padding: 40px 60px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 0.8rem; }
+  .footer a { color: var(--gcl-light); text-decoration: none; }
+  .footer a:hover { color: #fff; }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu { display: flex; }
+    .navbar { padding: 0 20px; }
+    .nav-brand-logo     { height: clamp(38px, 5.5vw, 66px); width: auto; }
+    .nav-brand-divider  { height: clamp(18px, 5vw, 26px); }
+    .nav-brand-acronym  { font-size: clamp(1.6rem, 3.8vw, 3.6rem); }
+    .nav-brand-fullname { font-size: clamp(0.30rem, 2.1vw, 0.75rem); }
+
+    .hero { padding: 60px 24px; min-height: auto; }
+    .section { padding: 50px 24px; }
+    .milestone-bar { padding: 0 20px; }
+    .story-grid { grid-template-columns: 1fr; gap: 36px; }
+    .footer { padding: 30px 24px; flex-direction: column; align-items: flex-start; }
+  }
+
+  .policy-body {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 60px 40px 100px;
+}
+.policy-body h2 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--gcl-dark);
+  letter-spacing: 0.04em;
+  margin: 40px 0 12px;
+}
+.policy-body h2:first-of-type { margin-top: 0; }
+.policy-body p {
+  font-size: 0.95rem;
+  color: #4a6655;
+  line-height: 1.85;
+  margin-bottom: 14px;
+}
+.policy-body ul {
+  margin: 8px 0 14px 20px;
+}
+.policy-body ul li {
+  font-size: 0.95rem;
+  color: #4a6655;
+  line-height: 1.85;
+  margin-bottom: 6px;
+}
+.policy-body a {
+  color: var(--gcl-bright);
+  text-decoration: none;
+}
+.policy-body a:hover { color: var(--gcl-dark); }
+
+@media (max-width: 768px) {
+  .policy-body { padding: 40px 24px 80px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a class="nav-brand" href="index.html">
+    <img class="nav-brand-logo" src="pictures/gcl_logo.png" alt="GCL">
+    <div class="nav-brand-divider"></div>
+    <div class="nav-brand-text">
+      <span class="nav-brand-acronym">GCL</span>
+      <span class="nav-brand-fullname">Green Cycle Limited</span>
+    </div>
+  </a>
+
+  <ul class="nav-links">
+    <li>
+      <a href="pyro-ccs.html">PyCCS <span class="arrow">▾</span></a>
+      <div class="dropdown">
+        <a href="pyro-ccs.html">Biochar for Remediation</a>
+        <a href="pyro-ccs.html">Microforestry™</a>
+        <a href="pyro-ccs.html">Agribusiness</a>
+      </div>
+    </li>
+    <li><a href="pyro-energy.html">Pyro Energy</a></li>
+    <li><a href="pyro-ccs.html#our-products">Our Products</a></li>
+    <li><a href="about.html" style="background:rgba(255,255,255,0.1);color:#fff;">About Us</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
+  </ul>
+
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul class="mobile-nav-list">
+    <li class="mobile-nav-item has-sub">
+      <a class="mobile-nav-link" href="pyro-ccs.html">PyCCS</a></li>
+    <li class="mobile-nav-item"><a class="mobile-nav-link" href="pyro-energy.html">Pyro Energy</a></li>
+    <li class="mobile-nav-item"><a class="mobile-nav-link" href="pyro-ccs.html#our-products">Our Products</a></li>
+    <li class="mobile-nav-item"><a class="mobile-nav-link" href="about.html">About Us</a></li>
+  </ul>
+  <a class="mobile-cta" href="contact.html">Contact Us</a>
+</div>
+
+<div class="page-body">
+
+  <div class="hero-strip">
+    <h1>Privacy Policy</h1>
+    <p>Last updated: May 2026</p>
+  </div>
+
+  <div class="policy-body">
+
+    <h2>Who we are</h2>
+    <p>Green Cycle Limited (GCL) is a Zambian environmental company specialising in pyrogenic carbon capture and storage, Microforestry™, and biochar-based soil solutions. Our registered office is in Zambia.</p>
+    <p>This policy applies to the website at <strong>www.pyrozm.com</strong>.</p>
+
+    <h2>What information we collect</h2>
+    <p>We only collect information you voluntarily give us through our contact form. This includes your name, email address, phone number, and the message you send us.</p>
+    <p>We do not use cookies. We do not use analytics tools. We do not collect any information passively from visitors.</p>
+
+    <h2>Why we collect it</h2>
+    <p>We use your information solely to respond to your enquiry. This may include answering questions about our products, following up on farm trial requests, or sending a product quote if you asked for one.</p>
+    <p>We will not contact you for any reason unrelated to what you reached out about.</p>
+
+    <h2>Who we share it with</h2>
+    <p>Your information is transmitted through <strong>Formspree</strong> (formspree.io), a third-party form service that delivers your message to our inbox. Formspree processes your data on our behalf to deliver the message. We do not sell, rent, or share your information with any other third party.</p>
+    <p>You can review Formspree's own privacy policy at <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener noreferrer">formspree.io/legal/privacy-policy</a>.</p>
+
+    <h2>How long we keep it</h2>
+    <p>We keep your message and contact details for as long as is necessary to handle your enquiry and any follow-up communication. If no business relationship develops, we will not retain your information beyond that correspondence.</p>
+
+    <h2>Your rights</h2>
+    <p>Under Zambia's <strong>Data Protection Act No. 3 of 2021</strong>, you have the right to:</p>
+    <ul>
+      <li>Know what personal information we hold about you</li>
+      <li>Request that we correct inaccurate information</li>
+      <li>Request that we delete your information</li>
+    </ul>
+    <p>To exercise any of these rights, contact us at the email or social media channels listed on our contact page.</p>
+
+    <h2>Security</h2>
+    <p>Your information is transmitted over HTTPS. We do not store your data on our website — it goes directly to our inbox via Formspree.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If we update this policy, we will revise the "Last updated" date at the top of this page. Given the simple nature of this site, we do not anticipate significant changes.</p>
+
+    <h2>Contact</h2>
+    <p>If you have any questions about this policy, reach out through the contact form on this website or find us on Facebook and Instagram — links are on the contact page.</p>
+
+  </div>
+
+</div>
+
+<footer class="footer">
+  <span>© <span id="yr"></span> Green Cycle Limited. All rights reserved.</span>
+  <div style="display:flex;gap:20px;">
+    <a href="index.html">← Back to Home</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="privacy.html">Privacy Policy</a>
+  </div>
+</footer>
+
+<script>
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  document.addEventListener('click', e => {
+    if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+</script>
+</body>
+</html>
