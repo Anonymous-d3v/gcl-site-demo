@@ -7,7 +7,7 @@
 <meta property="og:url"         content="https://www.pyrozm.com/pyro-ccs.html">
 <meta property="og:title"       content="PyCCS — Pyrogenic Carbon Capture & Storage | GCL">
 <meta property="og:description" content="Biochar for land remediation, Microforestry™ planting, and Pyro Black Urea™ for Zambian farmers.">
-<meta property="og:image"       content="https://www.pyrozm.com/pictures/pyro_energy.png">
+<meta property="og:image"       content="https://www.pyrozm.com/pictures/pyro-energy.png">
 <meta name="twitter:card"       content="summary_large_image">
 <title>PyCCS — Green Cycle Limited</title>
 
@@ -576,7 +576,7 @@
         <a href="#" onclick="switchTab('agribusiness');return false;">Agribusiness</a>
       </div>
     </li>
-    <li><a href="#our-products">Our Products</a></li>
+    <li><a href="#our-products" id="productsNav">Our Products</a></li>
     <li><a href="about.html">About Us</a></li>
     <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
   </ul>
@@ -597,7 +597,7 @@
         <a href="#" onclick="switchTab('agribusiness');hamburger.click();return false;">Agribusiness</a>
       </div>
     </li>
-    <li class="mobile-nav-item"><a class="mobile-nav-link" href="#our-products">Our Products</a></li>
+    <li class="mobile-nav-item"><a class="mobile-nav-link" href="#our-products" id="productsNavMobile">Our Products</a></li>
     <li class="mobile-nav-item"><a class="mobile-nav-link" href="about.html">About Us</a></li>
   </ul>
   <a class="mobile-cta" href="contact.html">Contact Us</a>
@@ -1070,6 +1070,35 @@
     btn.addEventListener('click', () => switchTab(btn.dataset.tab));
   });
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // ── OUR PRODUCTS NAV ──
+document.getElementById('productsNav').addEventListener('click', function(e) {
+  e.preventDefault();
+  switchTab('agribusiness');
+  setTimeout(() => {
+    document.getElementById('our-products').scrollIntoView({ behavior: 'smooth' });
+  }, 400);
+});
+
+if (window.location.hash === '#goto-products') {
+  setTimeout(() => {
+    switchTab('agribusiness');
+    setTimeout(() => {
+      document.getElementById('our-products').scrollIntoView({ behavior: 'smooth' });
+    }, 10);
+  }, 20);
+}
+
+document.getElementById('productsNavMobile').addEventListener('click', function(e) {
+  e.preventDefault();
+  hamburger.click(); // close the menu first
+  setTimeout(() => {
+    switchTab('agribusiness');
+    setTimeout(() => {
+      document.getElementById('our-products').scrollIntoView({ behavior: 'smooth' });
+    }, 400);
+  }, 300); // wait for menu close animation
+});
 
 </script>
 </body>
